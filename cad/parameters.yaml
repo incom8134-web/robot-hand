@@ -1,0 +1,41 @@
+# HAEBOT Hand i2 V1 - single source of truth for CAD dimensions (mm)
+# Tags: [SRC] cited source / measured from official STL, [DS] seller/datasheet nominal,
+#       [EST] engineering estimate, [TBM] to be measured with calipers on the real part.
+# After measuring, put the value in `measured:` and re-run cad/src/build_all.py.
+
+clearance: 0.20            # [EST] per side, FDM. Tune with the fit coupon (T-01)
+
+es08ma_ii:                 # EMAX ES08MA II micro servo
+  body_length:   {nominal: 23.0, tag: DS,  measured: null}   # littlebirdelectronics listing
+  body_width:    {nominal: 11.5, tag: DS,  measured: null}
+  case_height:   {nominal: 24.0, tag: DS,  measured: null}   # bottom to case top
+  tab_span:      {nominal: 32.5, tag: EST, measured: null}   # tip to tip of mounting tabs
+  tab_thickness: {nominal: 1.8,  tag: EST, measured: null}
+  tab_bottom_z:  {nominal: 15.5, tag: EST, measured: null}   # case bottom -> underside of tabs
+  tab_hole_pitch: {nominal: 27.5, tag: EST, measured: null}
+  tab_hole_dia:  {nominal: 2.0,  tag: EST, measured: null}
+  shaft_from_end: {nominal: 5.75, tag: EST, measured: null}   # shaft centre -> nearest body end
+  shaft_above_case: {nominal: 4.0, tag: EST, measured: null}
+  spline_dia:    {nominal: 4.0,  tag: EST, measured: null}
+
+stock_horn:                # single-arm horn shipped with the servo - pulley keys onto it
+  arm_length:    {nominal: 16.0, tag: TBM, measured: null}   # shaft centre -> arm tip
+  hub_dia:       {nominal: 7.0,  tag: TBM, measured: null}
+  hub_height:    {nominal: 4.0,  tag: TBM, measured: null}
+  arm_width_hub: {nominal: 6.0,  tag: TBM, measured: null}
+  arm_width_tip: {nominal: 3.8,  tag: TBM, measured: null}
+  arm_thickness: {nominal: 1.8,  tag: TBM, measured: null}
+  screw_dia:     {nominal: 2.2,  tag: TBM, measured: null}
+
+inmoov_i2:                 # measured from official STL files (inmoov.fr, downloaded 2026-11-11)
+  wristlarge_slot: {length: 39.9, width: 21.0, plate_top_z: 20.0, tag: SRC}
+  jx6225_shaft_from_slot_end: {nominal: 10.1, tag: EST}      # standard-servo typical, not verified
+  pulley: {dia: 17.0, height: 10.0, tag: SRC}
+  finger_root_knuckle: {width: 7.0, hinge_hole_dia: 3.58, tag: SRC}
+  finger_proximal_body_width: {value: 11.5, tag: SRC}
+  ptfe_tube_od: {value: 2.5, tag: SRC}                       # InMoov BOM
+  tendon_line_dia: {value: 0.8, tag: SRC}                    # InMoov BOM
+
+derived:
+  es08ma_ledge_z: 15.5     # [EST] tab ledge height in the modified WristLarge so the
+                           # ES08MA shaft top lands near the original JX shaft top (~z 28, EST)
