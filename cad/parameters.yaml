@@ -3,11 +3,11 @@
 #       [EST] engineering estimate, [TBM] to be measured with calipers on the real part.
 # After measuring, put the value in `measured:` and re-run cad/src/build_all.py.
 
-clearance: 0.20            # [EST] per side, FDM. Tune with the fit coupon (T-01)
+clearance: 0.35            # [EST] per side, FDM. Tune with the fit coupon (T-01)
 
 es08ma_ii:                 # EMAX ES08MA II micro servo
-  body_length:   {nominal: 23.0, tag: DS,  measured: null}   # littlebirdelectronics listing
-  body_width:    {nominal: 11.5, tag: DS,  measured: null}
+  body_length:   {nominal: 23.0, tag: DS,  measured: 24.0}   # measured: user calipers, EMAX ES08MA II analog; nominal from littlebirdelectronics listing
+  body_width:    {nominal: 11.5, tag: DS,  measured: 12.0}   # measured: user calipers, EMAX ES08MA II analog
   case_height:   {nominal: 24.0, tag: DS,  measured: null}   # bottom to case top
   tab_span:      {nominal: 32.5, tag: EST, measured: null}   # tip to tip of mounting tabs
   tab_thickness: {nominal: 1.8,  tag: EST, measured: null}

@@ -4,8 +4,8 @@ All dimensions in mm. Every number is tagged in [`parameters.yaml`](parameters.y
 `[SRC]` measured from the official STL · `[DS]` seller nominal · `[EST]` estimate · `[TBM]` to be measured.
 
 > **Status: GENERATED — nothing here has been printed or fit-tested yet.**
-> The ES08MA II seat is built from seller-nominal / estimated servo dimensions.
-> **Print the fit coupon first**, measure your real servo, update `parameters.yaml`, rebuild.
+> The ES08MA II body seat uses user-measured EMAX ES08MA II analog dimensions (24.0 × 12.0 mm, plus 0.35 mm clearance per side → 24.7 × 12.7 pocket).
+> Tab span, hole pitch, shaft offset and ledge height are still estimates. **Print the fit coupon first**, measure remaining features, update `parameters.yaml`, rebuild.
 
 ## Folder map
 
@@ -31,8 +31,8 @@ with a tendon guide above each slot. `[SRC: measured from the STL]`
 `HB_P01_WristLarge_ES08MA-II_mod` is that same part with:
 
 1. all 5 JX slots **refilled** (traced from the original slot outline every 0.5 mm, +0.3 mm overlap),
-2. a new **ES08MA II seat** cut into each: body slot 23.4 × 11.9, tab ledge at z = 15.5,
-   tab recess 32.9 long, 2 × Ø1.8 self-tap pilot holes, and a vertical **cable channel** at the far end,
+2. a new **ES08MA II seat** cut into each: body slot 24.7 × 12.7, tab ledge at z = 15.5,
+   tab recess 33.2 long, 2 × Ø1.8 self-tap pilot holes, and a vertical **cable channel** at the far end,
 3. each new output shaft placed on the **same axis as the original JX shaft** (10.1 mm `[EST]` from the
    slot end next to the tendon guide), so the official tendon guides and PTFE paths still line up.
 
