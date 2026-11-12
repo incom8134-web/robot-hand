@@ -18,6 +18,7 @@ cad/
 │   └── SHA256SUMS.txt               ← checksums of the files as downloaded 2026-11-11
 ├── 02_haebot_modified/              ← OUR parts (step/ + stl/)
 ├── 03_one_finger_test/              ← one-finger test rig (step/ + stl/)
+├── 04_jinie_branding/               ← Jinie EduTech logo on HandCover (step/ + stl/ + src/)
 ├── renders/                         ← automated check renders
 └── src/                             ← generators (CadQuery + trimesh/manifold3d)
 ```
@@ -41,6 +42,8 @@ Palm mounting was evaluated: the official palm/back shells are ~16 mm thick each
 tendon routing for 5 palm servos, so V1 keeps the official servo location (documented decision).
 
 ![WristLarge check](renders/HB_P01_WristLarge_mod_check.png)
+
+![WristLarge seats (24.7 × 12.7 mm)](renders/HB_P01_seats_top.png)
 
 ## Print list (one right hand + test rig)
 
@@ -78,7 +81,7 @@ Hardware: 1 × ES08MA II, M3 × 25–30 screw or Ø3 mm rod as hinge pin, 2 × M
 | O2 | `01_official_inmoov_i2/print/i2_FingersTipX5V2.stl` | 1 plate | yes | Rigid printed fingertips |
 | O3 | `01_official_inmoov_i2/print/i2_CoverFingerV3.stl` | 1 | yes | |
 | O4 | `01_official_inmoov_i2/print/i2_PalmCoverV2.stl` | 1 | yes | Palm shell (official BOM part) |
-| O5 | `01_official_inmoov_i2/print/i2_HandCoverV1.stl` | 1 | yes | Back-of-hand shell (official BOM part) |
+| O5 | `04_jinie_branding/stl/JE_HandCoverV1_JinieLogo.stl` | 1 | yes | Back-of-hand shell with Jinie logo. **Replaces** official `i2_HandCoverV1` (still in `01_.../print/` if you want the original) |
 | O6 | `01_official_inmoov_i2/print/i2_WristGearV1.stl` | 1 plate | no | Palm ↔ wrist link. No wrist servo in V1 → lock rotation `[verify at assembly]` |
 
 ### Do NOT print (kept for reference only)
@@ -93,6 +96,14 @@ Hardware: 1 × ES08MA II, M3 × 25–30 screw or Ø3 mm rod as hinge pin, 2 × M
 
 Reference-only CAD (never print): `HB_ES08MA-II_reference_dummy` (servo model for assemblies),
 `HB_ES08MA-II_pocket_cutter` (the negative used to cut seats — reuse it in your own CAD).
+
+
+## Branding — Hand Cover logo
+
+`JE_HandCoverV1_JinieLogo` is the official Hand Cover with the engraved "InMoov" filled flush
+and the Jinie EduTech icon + wordmark engraved in the same strip. See [`04_jinie_branding/README.md`](04_jinie_branding/README.md).
+
+![Hand cover logo](04_jinie_branding/renders/closeup_before_after_icon_text.png)
 
 ## File formats
 
@@ -113,6 +124,8 @@ python cad/src/build_parts.py           # new parts: STEP + STL
 python cad/src/modify_wristlarge.py     # re-cut the official WristLarge
 python cad/src/stl_to_step.py cad/02_haebot_modified/stl/HB_P01_WristLarge_ES08MA-II_mod.stl \
                              cad/02_haebot_modified/step/HB_P01_WristLarge_ES08MA-II_mod.step
+# zip the WristLarge STEP and leave the unzipped file untracked (it is >100 MB)
+python cad/src/render_checks.py                 # refresh cad/renders check images
 ```
 
 ### Caliper checklist (`[TBM]` / `[EST]` → measured)

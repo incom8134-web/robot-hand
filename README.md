@@ -81,6 +81,7 @@ robot-hand/
 │   ├── 01_official_inmoov_i2/   print/ + do_not_print/  (unmodified InMoov STL)
 │   ├── 02_haebot_modified/      step/ + stl/  (our parts)
 │   ├── 03_one_finger_test/      step/ + stl/
+│   ├── 04_jinie_branding/       Jinie logo HandCover (step/ + stl/ + src/)
 │   └── src/               # CadQuery / mesh scripts that regenerate everything
 ├── electronics/           # KiCad schematic & project                         — coming
 ├── firmware/              # Arduino sketch                                    — coming
