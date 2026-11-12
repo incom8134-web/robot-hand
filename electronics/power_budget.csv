@@ -1,0 +1,27 @@
+section,rail,ref,item,qty,typ_A_each,worst_A_each,typ_A_total,worst_A_total,volts,typ_W,worst_W,source,note
+load,6V servo,J2 CH0-CH5,MG996R servo (5 fingers + wrist) @ 5.96 V,6,0.7,2.5,4.2,15.0,5.962,25.04,89.43,"S4,S5","datasheet @6 V: running 0.5-0.9 A, stall 2.5 A (TowerPro site lists 1.4 A stall; we use the higher 2.5 A). typ 0.70 A = mid of running range (ASSUMPTION for tendon load)."
+load,6V servo,D5 R,6V rail LED (2.2 k),1,0.002,0.002,0.002,0.002,5.962,0.012,0.012,-,(6 - 2 V) / 2.2 k
+load,6V servo,R A1,6V sense divider 10k/10k -> A1,1,0.0003,0.0003,0.0003,0.0003,5.962,0.002,0.002,-,6 / 20 k
+load,5V1 Pi,J5,"Raspberry Pi 5 board, MediaPipe Hands (4 cores busy)",1,2.0,3.0,2.0,3.0,5.1,10.2,15.3,"S6,S7",typ: stress-ng measured 8.9-9.8 W = ~2.0 A [S7]; worst: board share of the official 5 A budget [S6]
+load,5V1 Pi,J5,Camera Module 3 (powered by the Pi),1,0.3,0.3,0.3,0.3,5.1,1.53,1.53,S8,ASSUMPTION ~0.3 A
+load,5V1 Pi,J5,Pi 5 Active Cooler fan,1,0.1,0.1,0.1,0.1,5.1,0.51,0.51,-,ASSUMPTION
+load,5V1 Pi,J5,Pi USB ports,1,0.0,1.6,0.0,1.6,5.1,0.0,8.16,S6,worst = 1.6 A (usb_max_current_enable=1). Default config limits USB to 0.6 A -> Pi 4.0 A. 5.0 A is the official Pi 5 maximum.
+load,5V1 logic,U1,ATmega328P-AU 16 MHz,1,0.0092,0.014,0.0092,0.014,5.1,0.047,0.071,S9,active 9.2 mA typ / 14 mA max
+load,5V1 logic,U6,CH340C (only with USB plugged),1,0.007,0.02,0.007,0.02,5.1,0.036,0.102,S10,ICC 7-20 mA
+load,5V1 logic,U5,TMC2209 VCC_IO + logic,1,0.002,0.005,0.002,0.005,5.1,0.01,0.025,S11,VCC_IO / internal logic supplied mostly from VS; IO few mA
+load,5V1 logic,U7 U8,2x SN74LVC1T45,2,0.0001,0.0005,0.0002,0.001,5.1,0.001,0.005,S12,"static ICC <= 10 uA, dynamic at 115 kbaud negligible"
+load,5V1 logic,D6 D8 R,LEDs 5V1 + STAT (1 k),2,0.003,0.003,0.006,0.006,5.1,0.031,0.031,-,(5.1 - 2 V)/1 k
+load,5V1 logic,R I2C,"I2C 4.7 k pull-ups to 5 V, limit-switch pull-up",1,0.002,0.003,0.002,0.003,5.1,0.01,0.015,-,calculated
+load,5V1 logic,J6,spare I2C connector 5 V,1,0.0,0.1,0.0,0.1,5.1,0.0,0.51,-,allowance; print '5V 100 mA max'
+load,3V3,U2,PCA9685PW at 3.3 V (16 ch),1,0.006,0.01,0.006,0.01,3.3,0.02,0.033,S13,IDD 6-10 mA; outputs only drive servo signal inputs
+load,3V3,D7 R,3V3 LED (680 R),1,0.002,0.002,0.002,0.002,3.3,0.007,0.007,-,(3.3 - 2 V)/680
+load,3V3,R VREF,TMC2209 VREF divider 10k/7.5k,1,0.0002,0.0002,0.0002,0.0002,3.3,0.001,0.001,-,3.3 / 17.5 k
+load,3V3,R,"Pi-TX idle pull-up 100 k, misc",1,0.0001,0.0001,0.0001,0.0001,3.3,0.0,0.0,-,
+load,3V3,,3.3 V allowance (future sensor),1,0.0,0.03,0.0,0.03,3.3,0.0,0.099,-,allowance
+load,12V motor,U5 J3,"NEMA 17 17HS4401S via TMC2209, I_RMS 1.0 A (1.2 A max)",1,,,0.392,1.0,12.0,4.7,12.0,"S11,S14",I_RMS 1.0 A: Cu 3.00 W + driver 0.68 W + 1 W mech (ASSUMPTION) = 0.39 A; 1.2 A + 3 W mech = 0.69 A; sized with a 1.0 A allowance
+load,12V direct,D4 R,12V LED (4.7 k),1,0.002,0.002,0.002,0.002,12.0,0.024,0.024,-,(12 - 2 V)/4.7 k
+load,12V direct,R A0,12 V sense divider 47k/10k -> A0,1,0.0002,0.0002,0.0002,0.0002,12.0,0.002,0.002,-,
+regulator (12V side),U3 TPSM41625 6V,U3,U3 TPSM41625 6V,1,,,2.253,7.812,12.0,27.04,93.74,"S1,S2","Iout typ 4.20 / worst 15.00 A; eff 92.7% / 95.4%; loss 1.98 / 4.30 W; rating at 6 V = 20 A (TI Fig 7-3), worst 15.0 A = 75%; Tj worst ~126 C (ours 20 C/W ASSUMPTION) / 99 C (TI board)"
+regulator (12V side),U4 TPS56837 5V1,U4,U4 TPS56837 5V1,1,,,1.089,2.347,12.0,13.07,28.17,"S1,S2","Iout typ 2.43 / worst 5.19 A; eff 95% / 94%; loss 0.65 / 1.69 W; 8 A part, worst 5.19 A = 65% (USB 1.6 A) / 4.19 A with default USB 0.6 A; Tj ~91 C"
+regulator,U9 TLV75533P 3V3,U9,LDO 5.1 -> 3.3 V (load already in 5V1 total),1,,,0.0083,0.0423,5.1,0.015,0.076,S3,"500 mA part, worst 42 mA = 8%; loss 76 mW"
+total,12V input,J1,12 V input (bucks + stepper + Q1 + misc),,,,3.74,11.21,12.0,44.9,134.6,,worst = 6 servos stalled at 2.5 A + Pi 5 A + stepper allowance; clone-peak case 6 x 3 A = 12.8 A / 154 W

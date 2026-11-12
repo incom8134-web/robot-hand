@@ -1,0 +1,96 @@
+Ref,Value,Part / MPN,Package,LCSC#,LCSC status,Qty,Rail / net,Purpose
+J1,XT60 male RA,Amass XT60PW-M,THT RA,C98732,verified,1,12V_IN,12 V input from the Mean Well LRS-350-12. It is a polarized 30 A connector that is hard to plug in backwards.
+F1,20 A fast,Littelfuse MINI(ATM) 0297020 blade fuse,MINI blade,TBD,fuse itself not on LCSC; buy locally,1,12V_IN,"Main board fuse: 11.2 A worst load is 56 % of rating, and it blows below the SMPS overload point."
+XF1,MINI fuse holder 30 A,Littelfuse 178.6764.0001,THT,C142933,verified,1,12V_IN,PCB holder for F1 so the fuse can be replaced without soldering.
+Q1,P-MOSFET -30 V 120 A 3.8 mΩ,Winsok WSD30L120ADN56,DFN5x6-8,C3825104,verified,1,12V_IN,Reverse-polarity protection and soft power switch (driven by SW1) with about 0.6 W loss at 11 A.
+DZ1,15 V zener,BZT52C15,SOD-123,C2104,verified (JSCJ),1,Q1 gate,Clamps Q1 gate-source below its ±20 V rating during input transients.
+R1,100k,0603WAF1003T5E,0603,C25803,verified,1,Q1 gate,Gate-source pull-up that keeps Q1 OFF when SW1 is off.
+R2,10k,0603WAF1002T5E,0603,C25804,verified,1,Q1 gate,Gate pull-down through SW1 that turns Q1 ON (about 1.2 mA).
+SW1,SPDT slide,SHOU HAN SK12D07VG4,THT slide,C393937,verified,1,Q1 gate,"Board power switch. It only switches the Q1 gate (mA), so it never carries 11 A."
+D1,TVS 13 V uni 600 W,SMBJ13A,SMB,C5344642,verified (Shikues),1,12V,Clamps 12 V input surges. 13 V standoff was chosen because TPSM41625 PVIN abs max is 17 V (residual risk: 21.5 V clamp).
+"C1,C2",470 µF 35 V,CapXon DV471M035G105ETR,SMD Ø10x10.5,C400092,verified but OUT OF STOCK – pick equivalent,2,12V,12 V input bulk that holds the rail up during servo current steps and damps hot-plug ringing.
+D4,LED red,KT-0603R,0603,C2286,verified,1,12V,Indicates 12 V is present after F1/Q1.
+R3,4.7k,0603WAF4701T5E,0603,C23162,verified,1,12V,Current limit for D4 (about 2 mA).
+"R4,R5",47k / 10k,0603 1 %,0603,TBD / C25804,10k verified; 47k TBD,2,12V sense,Divides 12 V to 2.1 V for MCU A0 so firmware can detect supply sag or loss.
+U3,TPSM41625 25 A module (≈20 A at 6 V),TI TPSM41625MOVR,QFN-69 11x16 mm,C5219357,verified,1,12V→6V,Servo rail regulator: 12 V to 5.96 V for 6× MG996R (worst 15 A).
+R6,187k,0603 1 %,0603,TBD,TBD,1,U3 VSEL,Selects the 1.1 V internal reference (TI Table 7-2).
+R7,4.42k,0603 1 %,0603,TBD,TBD,1,U3 ADJ,Sets VOUT = 1.1 V × (1 + 4.42k/1k) = 5.96 V.
+R8,30.1k,0603 1 %,0603,TBD,TBD,1,U3 RT,Sets 700 kHz switching frequency (TI table for 5–7.1 V out).
+R9,187k,0603 1 %,0603,TBD,TBD,1,U3 RAMP,Sets ramp compensation for 5–7.1 V out (TI table).
+R10,78.7k,0603 1 %,0603,TBD,TBD,1,U3 ILIM,Reduces current limit by 30 % (about 22 A) to protect headers and traces.
+R11,10k,0603WAF1002T5E,0603,C25804,verified,1,U3 PGOOD,"Pull-up for the PGOOD open-drain to 5V_MCU, read on MCU A2."
+C3-C6,22 µF 25 V X7R,Murata GRM32ER71E226KE15L,1210,C21397,verified,4,12V at U3,U3 input ceramic capacitance (TI minimum 88 µF).
+C7,100 µF 50 V hybrid polymer,Panasonic EEHZA1H101P,SMD Ø10x10.2,C109086,verified,1,12V at U3,U3 input bulk for load transients (TI recommended part).
+C8-C13,47 µF 10 V X7R,Murata GRM32ER71A476KE15L,1210,C84494,verified,6,6V,U3 output capacitance (TI minimum 134 µF effective for 5–7.1 V out).
+"C14,C15",470 µF 35 V,CapXon DV471M035G105ETR,SMD Ø10x10.5,C400092,verified but OUT OF STOCK – pick equivalent,2,6V at J2,Servo reservoir at the headers for motor start currents (stability to be checked in WEBENCH).
+C16,100 nF,X7R 50 V,0603,C14663,verified,1,U3 VCC/BP,U3 internal LDO bypass per TI layout.
+D5,LED orange/red,KT-0603R,0603,C2286,verified,1,6V,Indicates the 6 V servo rail is on.
+R12,2.2k,0603 1 %,0603,TBD,TBD,1,6V,Current limit for D5 (about 1.8 mA).
+"R13,R14",10k / 10k,0603WAF1002T5E,0603,C25804,verified,2,6V sense,Divides 6 V to 3 V for MCU A1 to detect servo stall sag.
+J2,3x8 male header 2.54 mm,generic 2.54 3x8 straight,THT,TBD,TBD,1,6V / PWM,"Servo connectors: CH0-4 fingers, CH5 wrist, CH6-7 spare (light duty). About 3 A per pin vs 2.5 A stall."
+R15-R22,220 Ω,0603 1 %,0603,TBD,TBD,8,PWM,Series resistors that protect PCA9685 outputs if a servo signal pin touches 6 V.
+U4,TPS56837 8 A buck,TI TPS56837RPAR,VQFN-HR-10 3x3,C22428366,verified,1,12V→5V1,"Pi 5 rail regulator: 12 V to 5.10 V, 8 A (worst 5.2 A)."
+L1,3.3 µH 12 A Isat 15 A,Würth 744325330,10.5x10.2 mm,C5129929,verified (JLC listing),1,5V1,U4 power inductor.
+"C17,C18",22 µF 25 V X7R,Murata GRM32ER71E226KE15L,1210,C21397,verified,2,12V at U4,U4 input capacitance.
+C19,100 nF,X7R 50 V,0603,C14663,verified,1,12V at U4,U4 high-frequency input decoupling at VIN pin.
+C20-C23,22 µF 25 V X7R,Murata GRM32ER71E226KE15L,1210,C21397,verified,4,5V1,U4 output capacitance (TI 2–10 × 22 µF).
+C24,100 nF,X7R 50 V,0603,C14663,verified,1,U4 BOOT,High-side gate-drive bootstrap capacitor.
+C25,47 nF,X7R,0603,TBD,TBD,1,U4 SS,Soft-start so the Pi rail ramps up smoothly.
+C26,150 pF,C0G,0603,TBD,TBD,1,U4 FB,Feed-forward capacitor for loop response (TI Table 7-2).
+"R23,R24",75.0k / 10.0k,0603 1 %,0603,TBD / C25804,10k verified; 75k TBD,2,U4 FB,Feedback divider: 0.6 V × (1 + 75/10) = 5.10 V.
+R25,30.1k,0603 1 %,0603,TBD,TBD,1,U4 MODE,"Selects 500 kHz, Eco-mode and 9.6 A current limit."
+"R26,R27",169k / 36.5k,0603 1 %,0603,TBD,TBD,2,U4 EN,"Enable divider: U4 starts only above about 6.7 V input, so it avoids brown-out chatter."
+R28,100k,0603WAF1003T5E,0603,C25803,verified,1,U4 PG,"Pull-up for power-good, read on MCU A3."
+D6,LED yellow,TBD 0603 yellow,0603,TBD,TBD,1,5V1,Indicates the Pi 5.1 V rail is on.
+R29,1k,0603WAF1001T5E,0603,C21190,verified,1,5V1,Current limit for D6.
+J5,Micro-Fit 3.0 1x7 RA,Molex 43650-0713,SMT RA 3.0 mm,C17338151,verified but OUT OF STOCK on LCSC,1,5V1/GND/UART,"Locking 7-pin Pi link: 2× 5.1 V, 3× GND, Pi TXD, Pi RXD (5 A/pin)."
+U9,TLV75533P 3.3 V 500 mA LDO,TI TLV75533PDBVR,SOT-23-5,C404027,verified,1,5V1→3V3,"Makes 3.3 V for PCA9685, the 3.3 V side of the translators, and the TMC2209 VREF."
+"C27,C28",1 µF,CL10A105KB8NNNC,0603,C15849,verified,2,U9,LDO input and output capacitors.
+D7,LED green,KT-0603G,0603,C12624,verified,1,3V3,Indicates 3.3 V logic rail is on.
+R30,680 Ω,0603 1 %,0603,TBD,TBD,1,3V3,Current limit for D7 (about 1.9 mA).
+U1,ATmega328P-AU,Microchip ATMEGA328P-AU,TQFP-32,C14877,verified,1,5V_MCU,"Real-time controller: reads Pi commands over UART, drives PCA9685 over I2C and TMC2209 STEP/DIR, and watches rails."
+Y1,16 MHz crystal 9 pF,YXC X322516MLB4SI,SMD3225-4P,C13738,verified,1,U1,MCU clock (Arduino-compatible 16 MHz).
+"C29,C30",22 pF C0G,0603,0603,C1653,verified,2,Y1,Crystal load capacitors (to be tuned to the crystal's 9 pF CL).
+C31-C34,100 nF,X7R 50 V,0603,C14663,verified,4,U1,"Decoupling for VCC ×2, AVCC and AREF."
+C35,10 µF,CL10A106KP8NNNC,0603,C19702,verified,1,5V_MCU,MCU-area bulk capacitor.
+R31,10k,0603WAF1002T5E,0603,C25804,verified,1,RESET,Reset pull-up.
+C36,100 nF,X7R,0603,C14663,verified,1,RESET,DTR auto-reset coupling so the CH340C can upload firmware like an Arduino.
+SW3,Tactile 5.1x5.1,XKB TS-1187A-B-A-B,SMD,C318884,verified,1,RESET,Manual MCU reset button.
+J7,2x3 header 2.54 mm,BOOMELE 2.54-2*3P,THT,C65114,verified,1,ICSP,ISP header to burn the bootloader on new boards.
+"D2,D3",Schottky 40 V 1 A,JSCJ B5819W SL,SOD-123,C8598,verified,2,5V_MCU,"Diode-OR of 5V1 and USB VBUS so the MCU can be programmed by USB alone, and USB can never back-feed the Pi."
+D8,LED blue/green,KT-0603G,0603,C12624,verified,1,D13,Firmware status/heartbeat LED.
+R32,1k,0603WAF1001T5E,0603,C21190,verified,1,D13,Current limit for D8.
+"C37,C38",100 nF,X7R,0603,C14663,verified,2,A0/A1,RC filter on the rail-sense ADC inputs.
+J8,USB-C receptacle 16P,HRO TYPE-C-31-M-12,SMD RA,C165948,verified,1,USB,USB connection for programming/debugging the MCU from a PC.
+"R37,R38",5.1k,0603 1 %,0603,TBD,TBD,2,USB CC,CC1/CC2 pull-downs so USB-C chargers and PCs give 5 V.
+U6,CH340C USB-UART,WCH CH340C,SOP-16,C84681,verified,1,5V_MCU,"USB-to-serial for uploading and debugging (internal oscillator, so no crystal is needed)."
+"C39,C40",100 nF,X7R,0603,C14663,verified,2,U6,CH340C VCC and V3 decoupling.
+SW2,SPDT slide,SHOU HAN SK12D07VG4,THT slide,C393937,verified,1,MCU RXD,Selects which source drives MCU RX: Pi (U7) or USB (U6). This prevents output contention.
+U7,SN74LVC1T45 (3V3→5V),TI SN74LVC1T45DBVR,SOT-23-6,C7843,verified,1,UART,"Translates Pi TXD (3.3 V) to MCU RXD (5 V). VCCA 3.3 V, VCCB 5 V, DIR high."
+U8,SN74LVC1T45 (5V→3V3),TI SN74LVC1T45DBVR,SOT-23-6,C7843,verified,1,UART,"Translates MCU TXD (5 V) to Pi RXD (3.3 V), protecting the Pi GPIO from 5 V."
+C41-C44,100 nF,X7R,0603,C14663,verified,4,U7/U8,Decoupling for each translator supply pin.
+R39,100k,0603WAF1003T5E,0603,C25803,verified,1,PI_TX,Holds the Pi TX line idle-high when the Pi is unplugged or booting.
+U2,PCA9685PW 16-ch 12-bit PWM,"NXP PCA9685PW,118",TSSOP-28,C2678753,verified,1,3V3,Generates 50 Hz servo PWM for 6 servos (+2 spare) from I2C commands. Inputs are 5.5 V tolerant.
+C45,100 nF,X7R,0603,C14663,verified,1,U2,PCA9685 decoupling.
+C46,10 µF,CL10A106KP8NNNC,0603,C19702,verified,1,3V3,PCA9685 local bulk capacitor.
+R40,10k,0603WAF1002T5E,0603,C25804,verified,1,PCA_OE,Pull-up on /OE so servo outputs stay OFF until the MCU enables them (D7).
+"R41,R42",4.7k,0603WAF4701T5E,0603,C23162,verified,2,I2C,"SDA/SCL pull-ups to 5V_MCU (PCA9685 is 5.5 V tolerant, so no level shifter is needed)."
+J6,JST XH 4P RA,JST S4B-XH-A,THT RA 2.5 mm,C20441294,verified,1,I2C 5V,"Spare I2C port (5 V, GND, SDA, SCL) for sensors or a display."
+U5,TMC2209 stepper driver,ADI/Trinamic TMC2209-LA-T,QFN-28 5x5,C2150710,verified,1,12V motor,"Drives the NEMA 17 base motor quietly (StealthChop, 1/16 interpolated to 1/256) at 1.0 A RMS."
+F2,2 A slow-blow 63 V,SART S1206-SD-2.0A,1206,C183156,verified,1,12V_MOT,Protects the thin 12 V branch to the TMC2209 (2× the 1 A allowance).
+C47,100 µF 50 V hybrid polymer,Panasonic EEHZA1H101P,SMD Ø10x10.2,C109086,verified,1,VS,TMC2209 motor-supply bulk (absorbs chopper ripple and back-EMF).
+C48,100 nF,X7R 50 V,0603,C14663,verified,1,VS,TMC2209 VS high-frequency decoupling.
+C49,22 nF 50 V,CL10B223KB8NNNC,0603,C21122,verified,1,CPO-CPI,Charge-pump capacitor (datasheet).
+C50,100 nF 50 V,X7R,0603,C14663,verified,1,VCP,Charge-pump storage capacitor (datasheet).
+C51,2.2 µF,CL10A225KO8NNNC,0603,C23630,verified,1,5VOUT,Internal 5 V regulator output capacitor (datasheet).
+"C52,C53",100 nF,X7R,0603,C14663,verified,2,5VOUT/VCC_IO,Decoupling.
+"R43,R44",0.11 Ω 1 % 0.25 W,1206 current sense,1206,TBD,C3037064 found but OUT OF STOCK,2,BRA/BRB,Coil-current sense resistors that set the current scale (I_RMS = VREF/√2 → 1.0 A).
+"R45,R46",10k / 7.5k,0603 1 %,0603,C25804 / TBD,10k verified; 7.5k TBD,2,VREF,"VREF divider from 3V3 that gives 1.41 V, which sets 1.0 A RMS motor current."
+R47,10k,0603WAF1002T5E,0603,C25804,verified,1,ENN,Pull-up so the motor stays disabled until the MCU drives EN low (D4).
+R48,10k,0603WAF1002T5E,0603,C25804,verified,1,PDN_UART,Pull-down that selects standalone mode with automatic standstill current reduction.
+JP1,solder jumper + 1k,0603WAF1001T5E (1k),0603 + pad,C21190,verified,1,PDN_UART,Optional single-wire UART to D8 (open by default) for teaching current/StallGuard tuning.
+R49,10k,0603WAF1002T5E,0603,C25804,verified,1,MS1,"Pull-up that sets MS1=H, MS2=L → 1/16 microstep."
+J3,JST XH 4P RA,JST S4B-XH-A,THT RA 2.5 mm,C20441294,verified,1,motor,NEMA 17 (17HS4401S) coil connector A1 A2 B1 B2.
+J4,JST XH 3P RA,JST S3B-XH-A(LF)(SN),THT RA 2.5 mm,C157928,verified,1,limit,"Base homing limit switch (5 V, signal, GND)."
+H1-H6,M2.5 mounting hole,—,Ø2.7 mm NPTH,—,—,6,GND (H1-H4 plated to GND optional),"Four holes on the Raspberry Pi 5 pattern (58×49 mm) for 18 mm standoffs, plus 2 holes for board fixing."
+PCB,4-layer 115×56 mm,"JLCPCB 4L, 2 oz outer / 1 oz inner, 1.6 mm",—,—,—,1,—,"L1 sig/pour, L2 GND, L3 power planes, L4 pour."
