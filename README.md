@@ -56,8 +56,8 @@ flowchart LR
 |---|---|---|
 | Fingers | Official i2 fingers printed as-is; Hall sensors & magnets simply not installed, silicone-tip mould not printed | `READY TO PRINT` |
 | Actuation | Tendon flexion + elastic extension | `PLANNED` |
-| Servos | 5 × EMAX ES08MA II — location: InMoov forearm **Simple Servo Bed** (official design), ES08MA II version not designed yet | `OWNED` — dims `[TBM]` |
-| Forearm servo bed | ES08MA II version of the InMoov Simple Servo Bed | `PLANNED` |
+| Servos | 5 × EMAX ES08MA II in the InMoov forearm servo bed (official location) | `OWNED` — dims `[TBM]` |
+| Forearm servo bed | Official RobServoBedV6 + 5 × `HB_F01` adapter plates for ES08MA II (shaft at original position/height) | `GENERATED` |
 | Pulley | New Ø17 × 10 pulley keyed to the stock ES08MA horn | `GENERATED` |
 | One-finger rig | Clevis + tendon/PTFE tower + servo seat for testing a single finger | `GENERATED` |
 | MCU | Arduino Nano (ATmega328P) | `PLANNED` |
@@ -80,7 +80,9 @@ robot-hand/
 │   ├── parameters.yaml    # all dimensions, tagged SRC/DS/EST/TBM
 │   ├── 01_official_inmoov_i2/   print/ + do_not_print/  (unmodified InMoov STL)
 │   ├── 02_haebot_modified/      step/ + stl/  (our parts)
+│   ├── 01_official_inmoov_forearm/  RobServoBedV6 (unmodified)
 │   ├── 03_one_finger_test/      step/ + stl/
+│   ├── 04_forearm_servo_bed/    step/ + stl/  (ES08MA II adapter plate)
 │   └── src/               # CadQuery / mesh scripts that regenerate everything
 ├── electronics/           # KiCad schematic & project                         — coming
 ├── firmware/              # Arduino sketch                                    — coming

@@ -13,11 +13,13 @@ All dimensions in mm. Every number is tagged in [`parameters.yaml`](parameters.y
 cad/
 ├── parameters.yaml                  ← single source of truth (edit measured: values here)
 ├── 01_official_inmoov_i2/           ← UNMODIFIED InMoov Hand i2 files (CC BY-NC 3.0, Gaël Langevin)
+├── 01_official_inmoov_forearm/      ← UNMODIFIED InMoov forearm servo bed (RobServoBedV6, CC BY-NC 3.0)
 │   ├── print/                       ← print these as-is
 │   ├── do_not_print/                ← not used in V1
 │   └── SHA256SUMS.txt               ← checksums of the files as downloaded 2026-11-11
 ├── 02_haebot_modified/              ← OUR parts (step/ + stl/)
 ├── 03_one_finger_test/              ← one-finger test rig (step/ + stl/)
+├── 04_forearm_servo_bed/            ← ES08MA II adapter plate for the official servo bed (step/ + stl/)
 ├── renders/
 └── src/build_parts.py               ← CadQuery generator for all our parts
 ```
@@ -29,8 +31,33 @@ In the official design the 5 finger servos sit in the **forearm**, on the InMoov
 The finger lines run from the hand to the servos through PTFE tubes
 (thumb 335, index/middle/ring 300, pinky 360 mm) `[SRC: inmoov.fr/hand-i2]`.
 
-**Next step (not done yet):** download the official *Forearm-and-Servo-Bed* set and make an
-ES08MA II version of the Simple Servo Bed. Until then, no hand part is modified.
+### ES08MA II in the official servo bed → `HB_F01` adapter plate (×5)
+
+The official `RobServoBedV6` is printed **unmodified**. Each of its 5 seats (3 front, 2 rear) gets one
+`HB_F01_ServoBedAdapter_ES08MA-II` plate, screwed into the **original 4 holes** of that seat.
+
+| | Original seat (measured from RobServoBedV6.stl) | ES08MA II | Difference |
+|---|---|---|---|
+| Body length (gap between rails) | 41.6 | 23.0 `[DS]` | −18.6 |
+| Body width (floor opening) | 20.1 | 11.5 `[DS]` | −8.6 |
+| Tab-hole pitch along servo | 49.8 (2 holes per tab, 9.5 apart) | ~27.5 `[EST]`, 1 hole per tab | −22.3 |
+| Servo bottom → under tabs | 26.0 (floor 3.5 → rail top 29.5) | ~15.5 `[EST]` | −10.5 |
+| Torque | ~10–13 kg·cm class | 1.6–2.0 kg·cm `[DS]` | ~6× weaker |
+
+How the adapter works:
+- 4.0 mm plate sits on the rail tops; open U-slots line up with the 4 original Ø3.07 holes (original screws).
+- ES08MA II drops through the plate, tabs rest on top, 2 × M2 self-tap screws.
+- **Shaft position = original servo shaft position** (10.15 mm from the seat centre, `[EST]` standard-servo offset).
+- **Shaft height = original** (16.5 mm above the rail top `[EST]`), so pulleys, PTFE tubes, RobCableFront/Back,
+  wrist and hand are unchanged. The original 3.4 mm lower rear-right seat is kept as designed.
+- Plate is symmetric: the engraved **arrow points to the shaft end**. Turn it 180° to put the shaft at the other end —
+  point it the same way your original servos' shafts face (toward the PTFE tube holes).
+- Same plate fits the left-arm bed (`LeftRobServoBedV6` is a mirror image).
+
+Digital check (`renders/HB_F01_ServoBed_assembly_check.png`): 5 plates + 5 servo models in the real bed, both
+orientations, right and left bed → **0.00 mm³ interference**, all 20 original holes clear. Not yet printed.
+
+![Servo bed assembly](renders/HB_F01_ServoBed_assembly_check.png)
 
 ## Print list
 
@@ -71,7 +98,15 @@ Hardware: 1 × ES08MA II, M3 × 25–30 screw or Ø3 mm rod as hinge pin, 2 × M
 | O7 | `01_official_inmoov_i2/print/i2_WristGearV1.stl` | 1 plate | no | Wrist rotation gear |
 | P03 | `02_haebot_modified/stl/HB_P03_Pulley_ES08MA-II.stl` | 5 | no | On the ES08MA II servos, replaces i2_PulleyX5V1 |
 
-Forearm / servo-bed parts: **not included yet** (see "Where the finger servos go").
+### Step 3 — forearm servo bed
+
+| # | File | Qty | Supports | Notes |
+|---|---|---|---|---|
+| B1 | `01_official_inmoov_forearm/print/RobServoBedV6.stl` | 1 | per official | Unmodified (right arm) |
+| F01 | `04_forearm_servo_bed/stl/HB_F01_ServoBedAdapter_ES08MA-II.stl` | 5 | no (print flat) | One per seat, arrow → shaft end |
+
+Other forearm parts (RobCableFront/Back, forearm shell, rotating wrist) are official and unmodified — not in this repo yet.
+`01_official_inmoov_forearm/do_not_print/LeftRobServoBedV6.stl` is the left-arm version.
 
 ### Do NOT print (kept for reference only)
 
@@ -114,6 +149,9 @@ python cad/src/build_parts.py
 | shaft height above case, spline Ø | |
 
 ## Open risks
+
+- Shaft offset (10.15) and shaft height (16.5) of the original servos are `[EST]` standard-servo values.
+  If your original pulley line-up differs, change `inmoov_forearm_servo_bed.std_*` and rebuild.
 
 - ES08MA II torque (1.6–2.0 kg·cm `[DS]`) is far below the servos the InMoov forearm bed was designed for
   (MG946R / HK15298 class), and the line runs through 300–360 mm of PTFE tube (friction).

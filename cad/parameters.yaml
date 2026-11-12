@@ -37,3 +37,18 @@ inmoov_i2:                 # measured from official STL files (inmoov.fr, downlo
 servo_seat:                # generic ES08MA II seat used by the fit coupon and the one-finger rig
   block_height: 20.0       # [EST] seat block thickness
   ledge_z: 15.5            # [EST] = tab_bottom_z, so the case bottom is flush with the block bottom
+
+inmoov_forearm_servo_bed:  # RobServoBedV6.stl (inmoov.fr Forearm-and-Servo-Bed), measured from the STL
+  seats: 5                 # 3 front bay + 2 rear bay, servo upright, shaft +Z
+  hole_pitch_along: 49.8   # [SRC] tab-hole spacing along the servo (front bay 49.7-50.0, rear 49.4)
+  hole_pitch_across: 9.5   # [SRC] two holes per tab
+  hole_dia: 3.07           # [SRC]
+  rail_top_z: 29.5         # [SRC] 4 seats; rear-right seat 26.1 (original stagger, kept)
+  bay_floor_top_z: 3.5     # [SRC]
+  std_body_length: 40.7    # [EST] standard servo the bed was built for (MG946R / HK15298 class)
+  std_shaft_from_end: 10.2 # [EST] standard-servo shaft centre -> nearest body end
+  std_shaft_top_above_rail: 16.5   # [EST] ~2.5 tab + ~9 case + ~5 shaft
+adapter_plate:
+  thickness: 4.0           # [EST] = std_shaft_top_above_rail (16.5) - ES08MA shaft top above tabs (8.5 + 4.0)
+  width: 18.0
+  end_margin: 1.6          # hole centre -> plate end; clears the bed centre post (0.4 mm), slots are open U-slots

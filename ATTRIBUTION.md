@@ -2,7 +2,7 @@
 
 | Asset | Author / Origin | License | Used here as |
 |---|---|---|---|
-| InMoov Hand i2 | Gaël Langevin — https://inmoov.fr/hand-i2/ | **CC BY-NC 3.0** (badge on inmoov.fr STL gallery → creativecommons.org/licenses/by-nc/3.0/) | Unmodified STLs stored in `cad/01_official_inmoov_i2/` (checksums in SHA256SUMS.txt) |
+| InMoov Hand i2 | Gaël Langevin — https://inmoov.fr/hand-i2/ | **CC BY-NC 3.0** (badge on inmoov.fr STL gallery → creativecommons.org/licenses/by-nc/3.0/) | Unmodified STLs stored in `cad/01_official_inmoov_i2/` and `cad/01_official_inmoov_forearm/` (RobServoBedV6, Forearm-and-Servo-Bed set) (checksums in SHA256SUMS.txt) |
 | prostheticHand | geigermartin — https://github.com/geigermartin/prostheticHand | **To be verified** (see repo) | Secondary reference for structure and control ideas. No files copied. |
 | Reference video | https://www.youtube.com/watch?v=7KV5489rL3c | YouTube standard terms | Viewing reference only. |
 
