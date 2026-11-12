@@ -21,8 +21,8 @@ def v(d):  # measured value wins over nominal
 S = {k: v(d) for k, d in P["es08ma_ii"].items()}
 H = {k: v(d) for k, d in P["stock_horn"].items()}
 C = P["clearance"]
-LEDGE = P["derived"]["es08ma_ledge_z"]
-PLATE_TOP = P["inmoov_i2"]["wristlarge_slot"]["plate_top_z"]
+LEDGE = P["servo_seat"]["ledge_z"]
+PLATE_TOP = P["servo_seat"]["block_height"]
 
 L, W = S["body_length"], S["body_width"]
 x0, x1 = -S["shaft_from_end"], L - S["shaft_from_end"]   # body x-range in local frame

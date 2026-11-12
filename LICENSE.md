@@ -4,7 +4,7 @@ Copyright © 2026 지니에듀테크(주) (Genie EduTech Co., Ltd.)
 
 ## Mixed licensing
 
-1. **InMoov files and InMoov-derived parts** (`cad/01_official_inmoov_i2/**`, `HB_P01_*`)
+1. **InMoov files and InMoov-derived parts** (`cad/01_official_inmoov_i2/**` and any part derived from them)
    are by Gaël Langevin / modifications of his work, under **CC BY-NC 3.0**
    (https://creativecommons.org/licenses/by-nc/3.0/). Commercial use,
    sale, or commercial redistribution is **not permitted** without permission from the

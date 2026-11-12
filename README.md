@@ -23,7 +23,7 @@
 HAEBOT Hand i2 V1 is a 3D-printed robotic hand derived from the open-source **[InMoov Hand i2](https://inmoov.fr/hand-i2/)** by Gael Langevin.
 Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servos we already own, drives **all five fingers independently** with tendons and return elastics, and targets a repeatable **Rock / Paper / Scissors** demonstration.
 
-> ⚠️ **Project status: CAD GENERATED, NOT YET PRINTED.** The servo-seat modification, pulley, fit coupon and one-finger test rig exist as STEP + STL, but are built from seller-nominal / estimated ES08MA II dimensions. **No physical fit, torque, current-draw, or endurance results exist yet.** Electronics and firmware come next.
+> ⚠️ **Project status: CAD GENERATED, NOT YET PRINTED.** The pulley, fit coupon and one-finger test rig exist as STEP + STL, but are built from seller-nominal / estimated ES08MA II dimensions. **No physical fit, torque, current-draw, or endurance results exist yet.** Electronics and firmware come next.
 
 ### 🖨️ Start here → [`cad/README.md`](cad/README.md) — what to print, what not to print, in which order.
 
@@ -56,8 +56,8 @@ flowchart LR
 |---|---|---|
 | Fingers | Official i2 fingers printed as-is; Hall sensors & magnets simply not installed, silicone-tip mould not printed | `READY TO PRINT` |
 | Actuation | Tendon flexion + elastic extension | `PLANNED` |
-| Servos | 5 × EMAX ES08MA II in the WristLarge servo bed (official Hand i2 servo location; palm evaluated, not feasible) | `OWNED` — dims `[TBM]` |
-| Servo seats | Official `i2_WristLargeV2` refilled + re-cut for 5 × ES08MA II (shafts on original axes) | `GENERATED` |
+| Servos | 5 × EMAX ES08MA II — location: InMoov forearm **Simple Servo Bed** (official design), ES08MA II version not designed yet | `OWNED` — dims `[TBM]` |
+| Forearm servo bed | ES08MA II version of the InMoov Simple Servo Bed | `PLANNED` |
 | Pulley | New Ø17 × 10 pulley keyed to the stock ES08MA horn | `GENERATED` |
 | One-finger rig | Clevis + tendon/PTFE tower + servo seat for testing a single finger | `GENERATED` |
 | MCU | Arduino Nano (ATmega328P) | `PLANNED` |
@@ -149,7 +149,7 @@ Files are labelled `PLANNED → DESIGNED → GENERATED → PRINTED → ASSEMBLED
 
 - Mechanical design is derived from **InMoov Hand i2 © Gael Langevin**, released under a Creative Commons **Non-Commercial** license (exact version to be confirmed on [inmoov.fr](https://inmoov.fr/hand-i2/)).
 - Unmodified InMoov STL files are kept in `cad/01_official_inmoov_i2/` for our internal build (InMoov is **CC BY-NC 3.0** — attribution required, non-commercial only). **This repository is intended to be private.**
-- `HB_P01` is InMoov-derived and inherits CC BY-NC 3.0. **No commercial use or sale** of InMoov-derived parts without the author's permission.
+- Any future part derived from an InMoov file inherits CC BY-NC 3.0. **No commercial use or sale** of InMoov-derived parts without the author's permission.
 - See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE.md](LICENSE.md).
 
 ## 🔗 References

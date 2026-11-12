@@ -28,14 +28,12 @@ stock_horn:                # single-arm horn shipped with the servo - pulley key
   screw_dia:     {nominal: 2.2,  tag: TBM, measured: null}
 
 inmoov_i2:                 # measured from official STL files (inmoov.fr, downloaded 2026-11-11)
-  wristlarge_slot: {length: 39.9, width: 21.0, plate_top_z: 20.0, tag: SRC}
-  jx6225_shaft_from_slot_end: {nominal: 10.1, tag: EST}      # standard-servo typical, not verified
   pulley: {dia: 17.0, height: 10.0, tag: SRC}
   finger_root_knuckle: {width: 7.0, hinge_hole_dia: 3.58, tag: SRC}
   finger_proximal_body_width: {value: 11.5, tag: SRC}
   ptfe_tube_od: {value: 2.5, tag: SRC}                       # InMoov BOM
   tendon_line_dia: {value: 0.8, tag: SRC}                    # InMoov BOM
 
-derived:
-  es08ma_ledge_z: 15.5     # [EST] tab ledge height in the modified WristLarge so the
-                           # ES08MA shaft top lands near the original JX shaft top (~z 28, EST)
+servo_seat:                # generic ES08MA II seat used by the fit coupon and the one-finger rig
+  block_height: 20.0       # [EST] seat block thickness
+  ledge_z: 15.5            # [EST] = tab_bottom_z, so the case bottom is flush with the block bottom
