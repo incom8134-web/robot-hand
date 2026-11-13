@@ -85,7 +85,7 @@ Do not port these as-is:
 |---|---|
 | HumanoidRoboticArmVision and InmoovNet **software** (MIT) | Yes, if we keep the copyright notice and license text on any substantial use or redistribution. Prefer reimplementing to our Nano protocol rather than copying files. |
 | prostheticHand **software** and InMoov_Robotic_Hand **SolidWorks files** | **No**, not without written permission. No usable license grant. |
-| **InMoov CAD / mechanics** (all four projects build on it) | **CC BY-NC 3.0**. Non-commercial only unless Gaël Langevin gives written permission. Their MIT (or missing) repo licenses do **not** relicense InMoov parts. This already applies to `cad/01_official_inmoov_i2/` and `HB_P01_*` in this repo. |
+| **InMoov CAD / mechanics** (all four projects build on it) | **CC BY-NC 3.0**. Non-commercial only unless Gaël Langevin gives written permission. Their MIT (or missing) repo licenses do **not** relicense InMoov parts. This already applies to `cad/original/` and the InMoov-derived parts in `cad/prototype/` in this repo. |
 | MediaPipe, OpenCV, Adafruit PWMServoDriver | Typically Apache-2.0 / BSD-style; commercial use is allowed under each project’s own terms. Confirm when we pin versions. |
 
 Do not add these repos as git submodules and do not copy their trees into this

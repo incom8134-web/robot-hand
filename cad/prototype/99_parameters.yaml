@@ -1,0 +1,51 @@
+# HAEBOT Hand prototype (EMAX ES08MA II in the official InMoov i2 WristLarge) - all mm.
+# Tags: [DWG] user's EMAX drawing, [CAL] user's caliper, [REF] generic micro-servo drawing (SG90 type),
+#       [SRC] measured from the official STL by 99_build_prototype.py, [EST] estimate, [VERIFY] must be checked on the real part.
+# Edit, then run:  python 99_build_prototype.py
+
+clearance: 0.4              # per side, servo body and tabs in the seat ("wiggle room"). 0.3 = tighter, 0.5 = looser.
+
+servo:                      # EMAX ES08MA II
+  body_length: 24.0         # [CAL] 24 (drawing 23.0) - larger value used
+  body_width: 12.0          # [CAL] 12 (drawing 11.5)
+  case_height: 19.65        # [DWG] bottom -> top of case
+  total_height: 24.0        # [DWG] bottom -> top of output spline
+  tab_bottom_z: 15.0        # [DWG] bottom -> underside of mounting tabs
+  tab_thickness: 2.5        # [REF] VERIFY on the EMAX
+  tab_span: 32.5            # [EST] seller "32.5 x 11.5 x 24". Seat is cut for this, so a shorter tab also fits.
+  tab_hole_pitch: 27.6      # [DWG] read as hole-to-hole spacing. VERIFY (see ASSEMBLY_GUIDE open question)
+  tab_hole_dia: 2.0         # [REF]
+  shaft_from_end: 5.9       # [REF] spline centre -> nearest body end. VERIFY
+  spline_dia: 4.0           # [EST]
+
+seat:                       # our adapter, local frame: origin = slot centre on the WristLarge bottom face,
+                            # -Y = toward the finger / tendon guide, +Z = palm side
+  # outer outline = official i2_Adapter1109MG (20.8 x 39.55, traced in the script); slot is 21.0 x 39.9 [SRC]
+  height: 19.8              # = official adapter = WristLarge thickness at the slots [SRC]
+  ledge_z: 15.5             # tab underside height -> servo bottom at z = 0.5, case top 20.15, spline top 24.5
+  jx_shaft_from_slot_end: 10.15   # [EST] standard-servo shaft offset; ES08MA II shaft is put on this axis
+  lip_z: 6.1                # stop lip rests on the WristLarge inner shelf (~6.0 [SRC])
+  lip_y_low: -21.3          # lip end at z = lip_z  (slot end is -19.95)
+  lip_half_width: 9.0       # lip is narrower than the slot (cavity walls at |x| > 9.5)
+  lip_chamfer_z: 10.5       # lip face is vertical up to here (clears the sloped inner rib) ...
+  lip_y_high: -22.3         # ... then 45 deg out to this (prints without support)
+  pilot_dia: 1.6            # M2 self-tapping screw pilot
+  pilot_depth: 7.0               # pilot bottom 2 mm above the cable notch
+  cable_notch_width: 4.4
+  cable_notch_depth_finger: 1.9
+  cable_notch_depth_wrist: 3.0
+  cable_notch_height: 5.5        # servo lead leaves the case end near the bottom - VERIFY
+
+pulley:                     # keys onto the single-arm horn that comes with the servo
+  dia: 17.0                 # = official i2 pulley [SRC]
+  height: 10.0
+  groove_z: 4.5             # groove centre above the pulley underside (low, to line up with the tendon guide)
+  horn: {arm_length: 16.0, hub_dia: 7.0, hub_height: 4.0, arm_width_hub: 6.0, arm_width_tip: 3.8, arm_thickness: 1.8, screw_dia: 2.2}  # [VERIFY] measure your horn
+
+stand:                      # desk stand that replaces the forearm for the prototype
+  prong_gap: 32.69          # [SRC] gap between the two WristLarge wrist prongs
+  m8_hole_y: 82.9           # [SRC] wrist-bolt hole centre (WristLarge coordinates)
+  m8_hole_z: 10.6           # [SRC]
+  m8_hole_dia: 8.4          # [SRC] measured 8.29 in the WristLarge prongs
+  base: {width: 120.0, depth: 100.0, thickness: 6.0}
+  neck_length: 40.0

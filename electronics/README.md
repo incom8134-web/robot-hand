@@ -3,7 +3,7 @@
 Jinie EduTech · HAEBOT Hand i2 V1 · custom controller board that carries a Raspberry Pi 5 on top.
 **Status: concept / pre-schematic. Component selection is fixed. The BOM is NOT production-approved.
 See "Validation still required before JLCPCB" in [power_budget.md](power_budget.md#9-validation-still-required-before-jlcpcb-owners-list).**
-v1 (A4988, Pololu buck modules, screw terminal) is archived in [`archive_v1/`](archive_v1/).
+The old v1 concept (A4988, Pololu buck modules) was removed; it is only in git history (commit 0bed944).
 
 ## What the board does
 - The **Raspberry Pi 5** runs MediaPipe hand tracking and sends joint targets over UART.
@@ -131,4 +131,3 @@ cd electronics/concept
 - `power_budget.csv` and `concept/power_budget_calc.py` — the numbers and the script that computes them.
 - `bom_controller_v2.csv` — every line has ref, value, MPN, package, LCSC# (verified by search, otherwise "TBD"), qty, rail and purpose.
 - `concept/layout.py` (placement, the single source of truth), `concept/draw_2d.py`, `concept/model_3d.py`.
-- `archive_v1/` — the previous v1 concept (README_v1, BOM v1, STEP, renders, scripts). The archived scripts are kept for reference and are not maintained.
