@@ -23,9 +23,9 @@
 HAEBOT Hand i2 V1 is a 3D-printed robotic hand derived from the open-source **[InMoov Hand i2](https://inmoov.fr/hand-i2/)** by Gael Langevin.
 Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servos we already own, drives **all five fingers independently** with tendons and return elastics, and targets a repeatable **Rock / Paper / Scissors** demonstration.
 
-> ⚠️ **Project status: CAD GENERATED, NOT YET PRINTED.** The pulley, fit coupon and one-finger test rig exist as STEP + STL, but are built from seller-nominal / estimated ES08MA II dimensions. **No physical fit, torque, current-draw, or endurance results exist yet.** Electronics and firmware come next.
+> ⚠️ **Project status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
 
-### 🖨️ Start here → [`cad/README.md`](cad/README.md) — what to print, what not to print, in which order.
+### 🖨️ Start here → [`cad/prototype/`](cad/prototype/) — one flat folder, files numbered in print order: [`PRINT_LIST.md`](cad/prototype/PRINT_LIST.md) · [`ASSEMBLY_GUIDE.md`](cad/prototype/ASSEMBLY_GUIDE.md)
 
 ## 🎯 V1 Goals
 
@@ -56,10 +56,10 @@ flowchart LR
 |---|---|---|
 | Fingers | Official i2 fingers printed as-is; Hall sensors & magnets simply not installed, silicone-tip mould not printed | `READY TO PRINT` |
 | Actuation | Tendon flexion + elastic extension | `PLANNED` |
-| Servos | 5 × EMAX ES08MA II in the InMoov forearm servo bed (official location) | `OWNED` — dims `[TBM]` |
-| Forearm servo bed | Official RobServoBedV6 + 5 × `HB_F01` adapter plates for ES08MA II (shaft at original position/height) | `GENERATED` |
-| Pulley | New Ø17 × 10 pulley keyed to the stock ES08MA horn | `GENERATED` |
-| One-finger rig | Clevis + tendon/PTFE tower + servo seat for testing a single finger | `GENERATED` |
+| Servos | 5 × EMAX ES08MA II **in the palm** (InMoov's official small-servo option) | `OWNED` |
+| Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `GENERATED` |
+| Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `GENERATED` |
+| Stand | `10_DeskStand` holds the hand upright by its wrist prongs (M8 bolt) — no forearm in the prototype | `GENERATED` |
 | MCU | Arduino Nano (ATmega328P) | `PLANNED` |
 | Power | Separate regulated 5–6 V servo rail, **common ground** | `PLANNED` |
 | Sensors | **None in V1** (no Hall sensors, no magnets) | By design |
@@ -76,15 +76,10 @@ robot-hand/
 ├── prompts/
 │   └── 해봇핸드i2_구현프롬프트_261111.md        # Claude implementation brief
 ├── cad/
-│   ├── README.md          # ⭐ print guide: print / do-not-print / order
-│   ├── parameters.yaml    # all dimensions, tagged SRC/DS/EST/TBM
-│   ├── 01_official_inmoov_i2/   print/ + do_not_print/  (unmodified InMoov STL)
-│   ├── 02_haebot_modified/      step/ + stl/  (our parts)
-│   ├── 01_official_inmoov_forearm/  RobServoBedV6 (unmodified)
-│   ├── 03_one_finger_test/      step/ + stl/
-│   ├── 04_forearm_servo_bed/    step/ + stl/  (ES08MA II adapter plate)
-│   └── src/               # CadQuery / mesh scripts that regenerate everything
-├── electronics/           # KiCad schematic & project                         — coming
+│   ├── README.md          # which folder is what
+│   ├── prototype/         # ⭐ ONE flat folder: 01_… 10_ parts (STL + STEP), PRINT_LIST, ASSEMBLY_GUIDE, images, 99_ generator
+│   └── original/          # unmodified InMoov Hand i2 + forearm servo bed files (for the later big-servo build)
+├── electronics/           # controller board v2 concept: power budget, BOM, renders, STEP
 ├── firmware/              # Arduino sketch                                    — coming
 ├── bom/                   # Bill of materials                                 — coming
 └── tests/                 # Test record templates                             — coming
@@ -150,7 +145,7 @@ Files are labelled `PLANNED → DESIGNED → GENERATED → PRINTED → ASSEMBLED
 ## 📜 License & Attribution
 
 - Mechanical design is derived from **InMoov Hand i2 © Gael Langevin**, released under a Creative Commons **Non-Commercial** license (exact version to be confirmed on [inmoov.fr](https://inmoov.fr/hand-i2/)).
-- Unmodified InMoov STL files are kept in `cad/01_official_inmoov_i2/` for our internal build (InMoov is **CC BY-NC 3.0** — attribution required, non-commercial only). **This repository is intended to be private.**
+- Unmodified InMoov STL files are kept in `cad/original/` for our internal build (InMoov is **CC BY-NC 3.0** — attribution required, non-commercial only). **This repository is intended to be private.**
 - Any future part derived from an InMoov file inherits CC BY-NC 3.0. **No commercial use or sale** of InMoov-derived parts without the author's permission.
 - See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE.md](LICENSE.md).
 

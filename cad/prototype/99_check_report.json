@@ -1,0 +1,197 @@
+{
+ "parameters": {
+  "clearance": 0.4
+ },
+ "seat": {
+  "body_pocket": [
+   12.8,
+   24.8
+  ],
+  "tab_recess": [
+   12.8,
+   33.3,
+   4.3
+  ],
+  "ledge_z": 15.5,
+  "pilot_pitch": 27.6,
+  "pilot_dia": 1.6,
+  "shaft_local_y": -9.8,
+  "servo_bottom_z": 0.5,
+  "case_top_z": 20.15,
+  "spline_top_z": 24.5,
+  "pulley_z": [
+   20.5,
+   30.5
+  ],
+  "groove_z": 25.0,
+  "walls": {
+   "side": 4.0,
+   "finger_end_below_lip": 3.56,
+   "finger_end_cable_notch": 1.66,
+   "finger_end_at_tab": 1.95,
+   "wrist_end_at_tab": 3.93,
+   "pilot_to_pocket": 0.6,
+   "pilot_to_lip_end": 3.0,
+   "side_at_bump": 3.14,
+   "pilot_floor_above_cable_notch": 3.0
+  },
+  "mesh_wall_thickness_min": 0.6,
+  "mesh_wall_thickness_p1": 1.66
+ },
+ "seats": [
+  {
+   "finger": "THUMB",
+   "pca_channel": 0,
+   "slot_centre": [
+    -42.96,
+    35.69
+   ],
+   "shaft_xy": [
+    -44.56,
+    26.02
+   ],
+   "jx_axis_xy": [
+    -44.56,
+    26.02
+   ],
+   "shaft_offset_from_jx": 0.0,
+   "guide_xy": [
+    -48.2,
+    4.7
+   ],
+   "shaft_to_guide": 21.6,
+   "adapter_vs_wristlarge_mm3": 0.0,
+   "adapter_0p3_lower_vs_wristlarge_mm3": 4.89,
+   "servo_vs_wristlarge_mm3": 0.0,
+   "servo_vs_adapter_mm3": 0.0,
+   "pulley_sweep_vs_wristlarge_mm3": 0.0,
+   "pulley_sweep_vs_adapter_mm3": 0.0
+  },
+  {
+   "finger": "INDEX",
+   "pca_channel": 1,
+   "slot_centre": [
+    -22.39,
+    19.69
+   ],
+   "shaft_xy": [
+    -23.23,
+    9.93
+   ],
+   "jx_axis_xy": [
+    -23.23,
+    9.93
+   ],
+   "shaft_offset_from_jx": 0.0,
+   "guide_xy": [
+    -24.3,
+    -11.5
+   ],
+   "shaft_to_guide": 21.4,
+   "adapter_vs_wristlarge_mm3": 0.0,
+   "adapter_0p3_lower_vs_wristlarge_mm3": 4.81,
+   "servo_vs_wristlarge_mm3": 0.0,
+   "servo_vs_adapter_mm3": 0.0,
+   "pulley_sweep_vs_wristlarge_mm3": 0.0,
+   "pulley_sweep_vs_adapter_mm3": 0.0
+  },
+  {
+   "finger": "MIDDLE",
+   "pca_channel": 2,
+   "slot_centre": [
+    -0.0,
+    7.93
+   ],
+   "shaft_xy": [
+    -0.0,
+    -1.87
+   ],
+   "jx_axis_xy": [
+    -0.0,
+    -1.87
+   ],
+   "shaft_offset_from_jx": 0.0,
+   "guide_xy": [
+    -0.0,
+    -23.5
+   ],
+   "shaft_to_guide": 21.6,
+   "adapter_vs_wristlarge_mm3": 0.0,
+   "adapter_0p3_lower_vs_wristlarge_mm3": 4.78,
+   "servo_vs_wristlarge_mm3": 0.0,
+   "servo_vs_adapter_mm3": 0.0,
+   "pulley_sweep_vs_wristlarge_mm3": 0.0,
+   "pulley_sweep_vs_adapter_mm3": 0.0
+  },
+  {
+   "finger": "RING",
+   "pca_channel": 3,
+   "slot_centre": [
+    21.92,
+    17.21
+   ],
+   "shaft_xy": [
+    22.66,
+    7.44
+   ],
+   "jx_axis_xy": [
+    22.66,
+    7.44
+   ],
+   "shaft_offset_from_jx": 0.0,
+   "guide_xy": [
+    23.6,
+    -14.0
+   ],
+   "shaft_to_guide": 21.4,
+   "adapter_vs_wristlarge_mm3": 0.0,
+   "adapter_0p3_lower_vs_wristlarge_mm3": 4.22,
+   "servo_vs_wristlarge_mm3": 0.0,
+   "servo_vs_adapter_mm3": 0.0,
+   "pulley_sweep_vs_wristlarge_mm3": 0.0,
+   "pulley_sweep_vs_adapter_mm3": 0.0
+  },
+  {
+   "finger": "PINKY",
+   "pca_channel": 4,
+   "slot_centre": [
+    -1.13,
+    56.94
+   ],
+   "shaft_xy": [
+    8.48,
+    55.01
+   ],
+   "jx_axis_xy": [
+    8.48,
+    55.01
+   ],
+   "shaft_offset_from_jx": 0.0,
+   "guide_xy": [
+    30.9,
+    48.0
+   ],
+   "shaft_to_guide": 23.5,
+   "adapter_vs_wristlarge_mm3": 0.0,
+   "adapter_0p3_lower_vs_wristlarge_mm3": 4.69,
+   "servo_vs_wristlarge_mm3": 0.0,
+   "servo_vs_adapter_mm3": 0.0,
+   "pulley_sweep_vs_wristlarge_mm3": 0.0,
+   "pulley_sweep_vs_adapter_mm3": 0.0
+  }
+ ],
+ "pairwise": {
+  "THUMB-INDEX": 0.0,
+  "THUMB-MIDDLE": 0.0,
+  "THUMB-RING": 0.0,
+  "THUMB-PINKY": 0.0,
+  "INDEX-MIDDLE": 0.0,
+  "INDEX-RING": 0.0,
+  "INDEX-PINKY": 0.0,
+  "MIDDLE-RING": 0.0,
+  "MIDDLE-PINKY": 0.0,
+  "RING-PINKY": 0.0
+ },
+ "notes": [],
+ "stand_vs_wristlarge_mm3": 0.0
+}

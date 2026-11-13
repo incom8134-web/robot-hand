@@ -14,7 +14,7 @@ from layout import *
 HERE = os.path.dirname(os.path.abspath(__file__))
 ELEC = os.path.abspath(os.path.join(HERE, ".."))
 REND = os.path.join(ELEC, "renders")
-LOGO_DXF = os.path.join(ELEC, "..", "cad", "04_jinie_branding", "dxf", "JE_HandCoverV1_JinieIconOnly_logo2d.dxf")
+LOGO_DXF = os.path.join(ELEC, "..", "docs", "brand", "jinie_icon_logo2d.dxf")
 T = BOARD_T
 FONT = "DejaVu Sans"
 
