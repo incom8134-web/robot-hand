@@ -156,9 +156,10 @@ Files are labelled `PLANNED → DESIGNED → GENERATED → PRINTED → ASSEMBLED
 
 ## 🔗 References
 
-1. InMoov Hand i2 — <https://inmoov.fr/hand-i2/>
-2. geigermartin/prostheticHand — <https://github.com/geigermartin/prostheticHand>
-3. Reference video — <https://www.youtube.com/watch?v=7KV5489rL3c>
+1. **PRIMARY vision-to-hand** — [Bolofofopt/HumanoidRoboticArmVision](https://github.com/Bolofofopt/HumanoidRoboticArmVision) (architecture reference; see [docs/references.md](docs/references.md))
+2. InMoov Hand i2 — <https://inmoov.fr/hand-i2/>
+3. geigermartin/prostheticHand — <https://github.com/geigermartin/prostheticHand>
+4. Reference video — <https://www.youtube.com/watch?v=7KV5489rL3c>
 
 ---
 
