@@ -1,11 +1,3 @@
-# raw faceted STEP of mesh-derived parts is huge — commit only the .zip
-cad/02_haebot_modified/step/HB_P01_WristLarge_ES08MA-II_mod.step
-cad/04_jinie_branding/step/JE_HandCoverV1_JinieLogo.step
-cad/04_jinie_branding/work/
-
-# Python / tooling
-venv/
-.venv/
 __pycache__/
 *.pyc
 .DS_Store

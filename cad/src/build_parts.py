@@ -21,8 +21,8 @@ def v(d):  # measured value wins over nominal
 S = {k: v(d) for k, d in P["es08ma_ii"].items()}
 H = {k: v(d) for k, d in P["stock_horn"].items()}
 C = P["clearance"]
-LEDGE = P["derived"]["es08ma_ledge_z"]
-PLATE_TOP = P["inmoov_i2"]["wristlarge_slot"]["plate_top_z"]
+LEDGE = P["servo_seat"]["ledge_z"]
+PLATE_TOP = P["servo_seat"]["block_height"]
 
 L, W = S["body_length"], S["body_width"]
 x0, x1 = -S["shaft_from_end"], L - S["shaft_from_end"]   # body x-range in local frame
@@ -153,6 +153,44 @@ def washer():
     return cq.Workplane("XY").circle(3.8).circle(PIN_D / 2 + 0.15).extrude(t)
 
 
+# ---------------------------------------------------------------- forearm servo-bed adapter plate
+FB = P["inmoov_forearm_servo_bed"]
+AP = P["adapter_plate"]
+BED = ROOT / "04_forearm_servo_bed"
+
+
+def servo_bed_adapter():
+    """Plate that screws into one RobServoBedV6 seat (4 original holes) and holds one ES08MA II.
+
+    Local frame: origin = centre of the 4 original holes on the rail top (z=0 = rail top),
+    +Y = toward the end where the original servo shaft was ("SHAFT" arrow), servo hangs below.
+    """
+    t, w, pa, pc = AP["thickness"], AP["width"], FB["hole_pitch_along"], FB["hole_pitch_across"]
+    half = pa / 2 + AP["end_margin"]
+    plate = box(-w / 2, w / 2, -half, half, 0, t).edges("|Z").fillet(1.5)
+    # original mounting holes as open U-slots at both ends (clearance for M3 / original screws)
+    r = FB["hole_dia"] / 2 + 0.1
+    for sy in (-1, 1):
+        for sx in (-1, 1):
+            yc = sy * pa / 2
+            slot = cyl(r, t + 2, (sx * pc / 2, yc, -1), (0, 0, 1)).union(
+                box(sx * pc / 2 - r, sx * pc / 2 + r, min(yc, sy * half * 1.2), max(yc, sy * half * 1.2), -1, t + 1))
+            plate = plate.cut(slot)
+    # ES08MA II: shaft on the original standard-servo shaft axis
+    y_shaft = FB["std_body_length"] / 2 - FB["std_shaft_from_end"]
+    # servo-local x (shaft -> far end) maps to plate -Y
+    ya, yb = y_shaft - (x1 + C), y_shaft - (x0 - C)
+    plate = plate.cut(box(-W / 2 - C, W / 2 + C, ya, yb, -1, t + 1))           # body through-cut
+    plate = plate.cut(box(-2.2, 2.2, ya - 3.2, ya + 0.1, -1, t + 1))           # cable notch, far end
+    for d in (-1, 1):                                                          # tab screw pilots
+        plate = plate.cut(cyl(0.9, t + 2, (0, y_shaft - xc + d * S["tab_hole_pitch"] / 2, -1), (0, 0, 1)))
+    # orientation arrow toward the shaft end, engraved 0.6 mm
+    arrow = (cq.Workplane("XY").polyline([(-3, 0), (3, 0), (0, 4)]).close().extrude(0.7)
+             .translate((0, half - 8.5, t - 0.6)))
+    return plate.cut(arrow), dict(y_shaft=y_shaft, thickness=t,
+                                  shaft_top_above_rail=t + S["case_height"] - S["tab_bottom_z"] + S["shaft_above_case"])
+
+
 def export(shape, folder, name):
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "step").mkdir(exist_ok=True)
@@ -171,3 +209,6 @@ if __name__ == "__main__":
     export(rig, RIG, "HB_T01_OneFingerRig_Base")
     export(washer(), RIG, "HB_T02_OneFingerRig_Washer")
     print(info)
+    ad, ainfo = servo_bed_adapter()
+    export(ad, BED, "HB_F01_ServoBedAdapter_ES08MA-II")
+    print("adapter", ainfo)
