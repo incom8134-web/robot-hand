@@ -35,7 +35,7 @@ board with the test sketch.
 | Hex bolt + nyloc nut + 2 washers | 1 set | **M8 × 60** | hand to desk stand | wrist prong holes measure **Ø8.3 mm**, prongs 6.9 mm thick, gap 32.7 mm |
 | Screws for the stand base | 4 | M4 wood screws (optional) | stand to a board | holes Ø4.4 mm |
 | Zip ties, small | 5 | 2.5 mm | servo cables | — |
-| 6 V power | 1 | the HAEBOT board 6 V servo rail, **or** a 6 V / 5 A bench supply for the first test | servos | 5 × ES08MA II stall ≈ 5.5 A total (see `electronics/power_budget.md`) |
+| 6 V power | 1 | the HAEBOT board 6 V servo rail, **or** a 6 V / 5 A bench supply for the first test | servos | 5 × ES08MA II stall ≈ 5.5 A total (see `electronics/version_1/power_budget.md`) |
 
 **Not needed for this prototype:** PTFE tube (only for servos in the forearm), springs, Hall sensors, magnets, silicone, ribbon cable.
 

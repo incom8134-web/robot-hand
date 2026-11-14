@@ -60,7 +60,7 @@ flowchart LR
 | Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `GENERATED` |
 | Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `GENERATED` |
 | Stand | `10_DeskStand` holds the hand upright by its wrist prongs (M8 bolt) — no forearm in the prototype | `GENERATED` |
-| MCU | Arduino Nano (ATmega328P) | `PLANNED` |
+| MCU | Arduino Nano (ATmega328P) in V1; custom USB-only board in electronics version 2 | `PLANNED` |
 | Power | Separate regulated 5–6 V servo rail, **common ground** | `PLANNED` |
 | Sensors | **None in V1** (no Hall sensors, no magnets) | By design |
 
@@ -79,11 +79,22 @@ robot-hand/
 │   ├── README.md          # which folder is what
 │   ├── prototype/         # ⭐ ONE flat folder: 01_… 10_ parts (STL + STEP), PRINT_LIST, ASSEMBLY_GUIDE, images, 99_ generator
 │   └── original/          # unmodified InMoov Hand i2 + forearm servo bed files (for the later big-servo build)
-├── electronics/           # controller board v2 concept: power budget, BOM, renders, STEP
+├── electronics/
+│   ├── version_1/         # archived: Pi 5 stacked controller concept (power budget, BOM, renders, STEP)
+│   └── version_2/         # current plan: USB-only board, 3 x STS3215 12 V servos, study guide
 ├── firmware/              # Arduino sketch                                    — coming
 ├── bom/                   # Bill of materials                                 — coming
 └── tests/                 # Test record templates                             — coming
 ```
+
+## 🔌 Electronics versions
+
+| Version | Plan | Where |
+|---|---|---|
+| 1 | Pi 5 stacked controller, PCA9685, 6 x MG996R, TMC2209 (archived) | [`electronics/version_1/`](electronics/version_1/) |
+| 2 | USB-only board (CH340C, ATmega328P, SC16IS750) driving 3 x Feetech STS3215 12 V servos through a separate Waveshare adapter; PC runs Python, OpenCV, MediaPipe | [`electronics/version_2/`](electronics/version_2/) |
+
+Version 2 is pre-schematic. See its README for the open items.
 
 ## 📄 Documents
 
