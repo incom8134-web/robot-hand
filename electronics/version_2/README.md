@@ -31,7 +31,7 @@ The earlier 3-servo grouping (thumb; index + middle; ring + pinky) stays possibl
 ## Open items
 - Half-duplex circuit details (buffer part, data-line pull-up) to be set by the board developer against the STS3215 manual.
 - Bus logic level and speed with an ATmega328PB at 5 V (1 Mbps default) to be verified.
-- **Open (2026-11-16): how 12 V leaves the board.** Does it share the servo connector (DATA, 12 V, GND, 3-pin, as the current diagrams show), or is there a separate power connector with the bus connector carrying only DATA and GND? Board GND and servo GND must be common either way for the half-duplex bus to work.
+- **Open (2026-11-16): how 12 V leaves the board.** Does it share the servo connector (DATA, 12 V, GND, 3-pin), or is there a separate power connector with the bus connector carrying only DATA and GND? The diagrams currently draw the second option, following the board developer's 2026-11-16 message, and are marked "pinout to confirm" until he answers. Board GND and servo GND must be common either way for the half-duplex bus to work.
 - 12 V path on the board: with the DC jack on the board, the copper and connectors carrying servo current must be rated for stall current (about 13.5 A for 5 servos).
 - Fit of 5 STS3215 in a new forearm servo bed (check in CAD).
 
