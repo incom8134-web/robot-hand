@@ -1,5 +1,7 @@
 # HAEBOT hand: design decisions (2026-11-16)
 
+Update 2026-11-16: no Waveshare adapter and no SC16IS750. ATmega328PB with half-duplex TTL servo bus, 12 V input on the board (see the EN and KO docs).
+
 Status: direction agreed in chat, not yet checked in CAD. Sizes marked "estimate" come from the STS3215 box dimensions and the InMoov i2 STL files in `cad/original/`.
 
 ## Motors
@@ -17,7 +19,7 @@ Status: direction agreed in chat, not yet checked in CAD. Sizes marked "estimate
 - **Controller board goes in the base**, not the arm. Easier to build and debug; no packing needed.
 - Only the 3-wire servo bus and the 12 V wire go up the arm.
 - Servo power: external 12 V supply with a barrel jack, fuse and switch on a separate small panel in the base. No buck converter (STS3215 runs from 12 V, control is USB only). Assumed, not confirmed by the user.
-- The Waveshare adapter (A) and the 12 V supply are separate from the board. Leave about 100 x 60 mm of base floor for the adapter. Adapter size not yet checked.
+- The 12 V supply is external. The 12 V input, fuse and servo connectors P1, P2 are on the board (updated from the earlier separate-adapter plan).
 
 ## Board spec for the board developer (base mounting)
 | Item | Value |
@@ -33,5 +35,4 @@ If the board is later moved into the arm: target 55 x 25 mm, maximum 60 x 30 mm,
 
 ## Open
 - Confirm the forearm and servo bed fit in CAD.
-- Check the Waveshare adapter dimensions.
-- Board developer's sketch (single board, no separate adapter) still to be reconciled.
+- USB connector type (C or B) pending.
