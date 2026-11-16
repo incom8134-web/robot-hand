@@ -1,5 +1,7 @@
 # Assembly guide — HAEBOT Hand prototype (InMoov i2 + EMAX ES08MA II)
 
+> **Superseded in part on 2026-11-16.** The finger servos moved to **5 x Feetech STS3215 (12 V) in the forearm**, so the ES08MA II parts **01, 02 and 03** (fit-test seat, servo adapter, pulley) no longer apply. The official hand parts **04 to 09** and the desk stand **10** are unchanged and still correct to print. The forearm bed and pulleys for the STS3215 are not designed yet — see [`../../electronics/version_2/dona_univ_robot_hand_2026-11-16_Sanjev_decisions.md`](../../electronics/version_2/dona_univ_robot_hand_2026-11-16_Sanjev_decisions.md).
+
 This guide is complete on its own. Part numbers match the file names in this folder (`02` = `dona_univ_robot_hand_2026-11-13_Sanjev_02_servoadapter_es08ma_ii_x5.stl`).
 Anything marked **VERIFY** has not been checked on a real print yet. Check it while you build and tell us what you find.
 

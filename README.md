@@ -7,7 +7,7 @@
 
 ![Status](https://img.shields.io/badge/status-CAD%20generated%20%E2%80%94%20not%20printed-orange)
 ![Version](https://img.shields.io/badge/version-V1-informational)
-![MCU](https://img.shields.io/badge/MCU-Arduino%20Nano-00979D)
+![MCU](https://img.shields.io/badge/MCU-ATmega328PB-00979D)
 ![CAD](https://img.shields.io/badge/CAD-FreeCAD-red)
 ![EDA](https://img.shields.io/badge/EDA-KiCad-314CB0)
 ![License](https://img.shields.io/badge/license-non--commercial-lightgrey)
@@ -23,7 +23,9 @@
 HAEBOT Hand i2 V1 is a 3D-printed robotic hand derived from the open-source **[InMoov Hand i2](https://inmoov.fr/hand-i2/)** by Gael Langevin.
 Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servos we already own, drives **all five fingers independently** with tendons and return elastics, and targets a repeatable **Rock / Paper / Scissors** demonstration.
 
-> ⚠️ **Project status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
+> 🔄 **Current design — updated 2026-11-16.** The finger servos moved. The hand is now driven by **5 x Feetech STS3215 (12 V) smart servos in the forearm**, one per finger, on a half-duplex TTL bus from a custom **ATmega328PB** board — not the palm-mounted EMAX ES08MA II of V1. Electronics: [`electronics/version_2/`](electronics/version_2/). The forearm servo bed and the STS3215 pulleys are **not designed yet**. V1 material below is kept for reference; the rows it supersedes are marked `SUPERSEDED`.
+
+> ⚠️ **V1 status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
 
 ### 🖨️ Start here → [`cad/prototype/`](cad/prototype/) — one flat folder, files numbered in print order: [`dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md`](cad/prototype/dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md) · [`dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md`](cad/prototype/dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md)
 
@@ -36,7 +38,24 @@ Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servo
 | 3 | Reproducible, documented engineering repo | Another builder can print, wire, and calibrate from the docs |
 | 4 | Education-ready | Usable in physical-AI / vibe-coding courses |
 
-## 🧩 System Architecture
+## 🧩 System Architecture — current (2026-11-16)
+
+```mermaid
+flowchart LR
+    PC["Windows PC<br/>Python · OpenCV · MediaPipe"] -- "USB mini-B" --> CH[CH340C]
+    CH -- UART0 --> MCU["ATmega328PB<br/>5 V · 16 MHz"]
+    MCU -- UART1 --> BUF["Half-duplex TTL<br/>tri-state buffer"]
+    BUF -- "DATA (one wire)" --> SERVO["5 × STS3215 12 V<br/>IDs 1–5, in the forearm"]
+    JACK["12 V DC jack"] --> SERVO
+    JACK --> REG["12 V → 5 V<br/>regulator"]
+    REG --> MCU
+    USB5["USB 5 V"] --> MCU
+    MCU -. "common GND" .- SERVO
+```
+
+Open with the board developer: whether 12 V shares the servo connector or gets its own, and how the two 5 V sources (USB and the regulator) are selected. See [`electronics/version_2/README.md`](electronics/version_2/README.md).
+
+## 🧩 System Architecture — V1 (superseded)
 
 ```mermaid
 flowchart LR
@@ -56,12 +75,12 @@ flowchart LR
 |---|---|---|
 | Fingers | Official i2 fingers printed as-is; Hall sensors & magnets simply not installed, silicone-tip mould not printed | `READY TO PRINT` |
 | Actuation | Tendon flexion + elastic extension | `PLANNED` |
-| Servos | 5 × EMAX ES08MA II **in the palm** (InMoov's official small-servo option) | `OWNED` |
-| Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `GENERATED` |
-| Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `GENERATED` |
+| Servos | 5 × EMAX ES08MA II **in the palm** (InMoov's official small-servo option) | `SUPERSEDED` — now 5 × STS3215 in the forearm |
+| Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `SUPERSEDED` — a new forearm bed is needed for the STS3215 |
+| Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `SUPERSEDED` — 5 new pulleys to be designed for the STS3215 |
 | Stand | `10_DeskStand` holds the hand upright by its wrist prongs (M8 bolt) — no forearm in the prototype | `GENERATED` |
-| MCU | Arduino Nano (ATmega328P) in V1; custom ATmega328PB board in electronics version 2 | `PLANNED` |
-| Power | Separate regulated 5–6 V servo rail, **common ground** | `PLANNED` |
+| MCU | Custom ATmega328PB board, USB mini-B for data (Arduino Nano in V1) | `PLANNED` |
+| Power | 12 V DC jack straight to the servos; 5 V for the logic from USB or an on-board 12 V → 5 V regulator, **common ground** | `PLANNED` |
 | Sensors | **None in V1** (no Hall sensors, no magnets) | By design |
 
 ## 📂 Repository Structure

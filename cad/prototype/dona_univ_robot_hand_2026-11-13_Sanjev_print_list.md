@@ -1,5 +1,7 @@
 # Print list — HAEBOT Hand prototype (EMAX ES08MA II)
 
+> **Superseded in part on 2026-11-16.** The finger servos moved to **5 x Feetech STS3215 (12 V) in the forearm**, so the ES08MA II parts **01, 02 and 03** (fit-test seat, servo adapter, pulley) no longer apply. The official hand parts **04 to 09** and the desk stand **10** are unchanged and still correct to print. The forearm bed and pulleys for the STS3215 are not designed yet — see [`../../electronics/version_2/dona_univ_robot_hand_2026-11-16_Sanjev_decisions.md`](../../electronics/version_2/dona_univ_robot_hand_2026-11-16_Sanjev_decisions.md).
+
 Everything is in this folder. Print top to bottom. `xN` in a file name = print N copies.
 Material: PLA is fine for all parts (PETG also OK). 0.4 mm nozzle, layer 0.2 mm (0.25 max).
 Official InMoov parts (04–08) use InMoov's settings: 30 % infill, 2 mm walls. Our parts are small and get more walls.
