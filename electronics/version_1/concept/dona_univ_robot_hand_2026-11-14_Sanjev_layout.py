@@ -6,7 +6,7 @@ The Raspberry Pi 5 sits on 18 mm standoffs over x = 30..115. The left 30 mm is t
 it holds the power entry, the fuse, the servo headers and the parts students touch.
 Every part under the Pi must be <= 12 mm tall.
 
-Sizes are real package / body sizes from the BOM (bom_controller_v2.csv) datasheets.
+Sizes are real package / body sizes from the BOM (dona_univ_robot_hand_2026-11-14_Sanjev_bom_controller_v2.csv) datasheets.
 Clusters of 0603 passives that serve one IC are drawn as one small box ("cluster") and labelled
 with every reference designator they contain.
 This is a CONCEPT placement for drawings and the 3D mock-up. It is NOT a routed PCB.

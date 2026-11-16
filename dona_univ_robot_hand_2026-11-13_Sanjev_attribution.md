@@ -2,7 +2,7 @@
 
 | Asset | Author / Origin | License | Used here as |
 |---|---|---|---|
-| InMoov Hand i2 | Gaël Langevin — https://inmoov.fr/hand-i2/ | **CC BY-NC 3.0** (badge on inmoov.fr STL gallery → creativecommons.org/licenses/by-nc/3.0/) | Unmodified STLs stored in `cad/original/` (hand_i2 + forearm_servo_bed, checksums in `cad/original/SHA256SUMS.txt`); official parts the prototype needs are copied unchanged into `cad/prototype/` with numbered names. `02_ServoAdapter_ES08MA-II` reuses the outer outline of InMoov's `i2_Adapter1109MG` (InMoov-derived). |
+| InMoov Hand i2 | Gaël Langevin — https://inmoov.fr/hand-i2/ | **CC BY-NC 3.0** (badge on inmoov.fr STL gallery → creativecommons.org/licenses/by-nc/3.0/) | Unmodified STLs stored in `cad/original/` (hand_i2 + forearm_servo_bed, checksums in `cad/original/dona_univ_robot_hand_2026-11-13_Sanjev_sha256sums.txt`); official parts the prototype needs are copied unchanged into `cad/prototype/` with numbered names. `02_ServoAdapter_ES08MA-II` reuses the outer outline of InMoov's `i2_Adapter1109MG` (InMoov-derived). |
 | prostheticHand | geigermartin — https://github.com/geigermartin/prostheticHand | **To be verified** (see repo) | Secondary reference for structure and control ideas. No files copied. |
 | Reference video | https://www.youtube.com/watch?v=7KV5489rL3c | YouTube standard terms | Viewing reference only. |
 

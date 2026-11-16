@@ -1,6 +1,6 @@
 # Assembly guide — HAEBOT Hand prototype (InMoov i2 + EMAX ES08MA II)
 
-This guide is complete on its own. Part numbers match the file names in this folder (`02` = `02_ServoAdapter_ES08MA-II_x5.stl`).
+This guide is complete on its own. Part numbers match the file names in this folder (`02` = `dona_univ_robot_hand_2026-11-13_Sanjev_02_servoadapter_es08ma_ii_x5.stl`).
 Anything marked **VERIFY** has not been checked on a real print yet. Check it while you build and tell us what you find.
 
 ## How the design works (read once)
@@ -14,7 +14,7 @@ Anything marked **VERIFY** has not been checked on a real print yet. Check it wh
   A **round elastic** on the back of each finger opens it again (InMoov's recommendation for small servos instead of springs).
 - For the prototype the hand stands on a **desk stand (10)** instead of a forearm, so there is no wrist rotation yet.
 
-![parts](img_01_parts_overview.png)
+![parts](dona_univ_robot_hand_2026-11-13_Sanjev_img_01_parts_overview.png)
 
 ## 1. Tools and hardware
 
@@ -35,20 +35,20 @@ board with the test sketch.
 | Hex bolt + nyloc nut + 2 washers | 1 set | **M8 × 60** | hand to desk stand | wrist prong holes measure **Ø8.3 mm**, prongs 6.9 mm thick, gap 32.7 mm |
 | Screws for the stand base | 4 | M4 wood screws (optional) | stand to a board | holes Ø4.4 mm |
 | Zip ties, small | 5 | 2.5 mm | servo cables | — |
-| 6 V power | 1 | the HAEBOT board 6 V servo rail, **or** a 6 V / 5 A bench supply for the first test | servos | 5 × ES08MA II stall ≈ 5.5 A total (see `electronics/version_1/power_budget.md`) |
+| 6 V power | 1 | the HAEBOT board 6 V servo rail, **or** a 6 V / 5 A bench supply for the first test | servos | 5 × ES08MA II stall ≈ 5.5 A total (see `electronics/version_1/dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md`) |
 
 **Not needed for this prototype:** PTFE tube (only for servos in the forearm), springs, Hall sensors, magnets, silicone, ribbon cable.
 
 ## 2. Print the fit test (01) and check the servo
 
-![fit test](img_02_fit_test.png)
+![fit test](dona_univ_robot_hand_2026-11-13_Sanjev_img_02_fit_test.png)
 
 1. Print **01** (about 10 minutes, no supports).
 2. Push one ES08MA II in from the top. The **tabs should rest on the ledge** and the body should hang through. It should go in by hand without forcing,
    with a little play (about 0.4 mm each side).
 3. Put in the two **M2 × 6** screws through the tab holes. They should bite into the plastic.
 4. Decide:
-   - **Too tight** → in `99_parameters.yaml` set `clearance: 0.5`. **Too loose** → `clearance: 0.3`. Then run `python 99_build_prototype.py` and print 01 again.
+   - **Too tight** → in `dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml` set `clearance: 0.5`. **Too loose** → `clearance: 0.3`. Then run `python dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py` and print 01 again.
    - **Screws miss the holes** → measure the distance between the two tab-hole centres and put it in `tab_hole_pitch` (now 27.6). Rebuild. (See open question Q1.)
    - **OK** → print the five **02** adapters and five **03** pulleys.
 
@@ -63,7 +63,7 @@ board with the test sketch.
 
 ## 4. Mount each servo in an adapter (02)
 
-![servo into adapter](img_03_servo_into_adapter.png)
+![servo into adapter](dona_univ_robot_hand_2026-11-13_Sanjev_img_03_servo_into_adapter.png)
 
 1. Look at the top of the adapter: the **engraved arrow points to the finger end**.
 2. Turn the servo so its **shaft is at the arrow end** and the **lead (wire) exits at the bottom**. There is a cable notch at the bottom of both ends; use
@@ -73,7 +73,7 @@ board with the test sketch.
 
 ## 5. Put the adapters into the WristLarge (04)
 
-![adapters into wristlarge](img_04_adapters_into_wristlarge.png)
+![adapters into wristlarge](dona_univ_robot_hand_2026-11-13_Sanjev_img_04_adapters_into_wristlarge.png)
 
 1. Hold 04 with the **palm side up** (the side with the small guide arches near the finger joints).
 2. Drop each adapter into a slot from the palm side, **arrow toward the fingers**. It slides in until a small lip at the finger end stops on
@@ -89,23 +89,23 @@ board with the test sketch.
 | RING | slot on the little-finger side | 3 |
 | PINKY | slot lying across the palm near the wrist | 4 |
 
-![check top view](img_06_check_top_view_5_seats.png)
+![check top view](dona_univ_robot_hand_2026-11-13_Sanjev_img_06_check_top_view_5_seats.png)
 
 ## 6. Center each servo, then fit horn and pulley (03)
 
-![servo center and pulley](img_05_servo_center_and_pulley.png)
+![servo center and pulley](dona_univ_robot_hand_2026-11-13_Sanjev_img_05_servo_center_and_pulley.png)
 
 1. Connect one servo at a time to the servo tester or the board (step 9 wiring) and send **90°**. Unplug it.
 2. Press the **stock single-arm horn** onto the shaft with the arm pointing to the **wrist end** (the arm sits inside the pulley pocket, so its
    direction only sets the starting point).
 3. Press the **pulley (03)** over the horn (the pocket on its underside matches the horn) and screw it down with the **M2 × 12** screw through the centre.
-   If the horn does not fit the pocket, measure your horn and enter it under `pulley: horn:` in `99_parameters.yaml`, then rebuild (**VERIFY** with your horn).
+   If the horn does not fit the pocket, measure your horn and enter it under `pulley: horn:` in `dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml`, then rebuild (**VERIFY** with your horn).
 4. Line travel: the Ø17 pulley pulls **13.4 mm per 90°** and **26.7 mm** over the full 180°. **VERIFY** that is enough to close a finger fully (step 8).
    If not, raise `pulley: dia` (20 mm → 31 mm of travel, but less pulling force) and rebuild.
 
 ## 7. Assemble the fingers and thread the tendons
 
-![finger tendon elastic](img_07_finger_tendon_elastic.png)
+![finger tendon elastic](dona_univ_robot_hand_2026-11-13_Sanjev_img_07_finger_tendon_elastic.png)
 
 1. Lay out the segments from 05 and the tips from 06. Every finger has the same shape except the thumb. Don't fit a finger upside down: the
    **tendon channel is on the palm side** and the **6 mm elastic channel is on the back**.
@@ -132,7 +132,7 @@ board with the test sketch.
 
 ## 9. Wiring and first power-up
 
-![wiring](img_08_wiring_pca9685.png)
+![wiring](dona_univ_robot_hand_2026-11-13_Sanjev_img_08_wiring_pca9685.png)
 
 1. Route the 5 servo wires along the back of 04 to the wrist and bundle them with a zip tie. Leave enough slack so nothing pulls when the fingers move.
 2. Plug each servo into the **PCA9685** header on the controller board: **CH0 thumb, CH1 index, CH2 middle, CH3 ring, CH4 pinky**, CH5 is kept for the
@@ -145,7 +145,7 @@ board with the test sketch.
 
 ## 10. Covers and stand
 
-![desk stand](img_09_desk_stand.png)
+![desk stand](dona_univ_robot_hand_2026-11-13_Sanjev_img_09_desk_stand.png)
 
 1. When all 5 fingers work, fit the **palm cover (08)** with 3 × M3 × 16. Lay the lines in their paths and don't pinch them. Then fit the **Jinie hand cover (09)**
    on the back and the **finger cover (07)** with M3 × 16 screws (holes Ø2.9 mm: the screw cuts its own thread).
@@ -170,9 +170,9 @@ board with the test sketch.
 
 ```bash
 pip install cadquery trimesh manifold3d shapely matplotlib pyyaml
-# edit 99_parameters.yaml (calipers), then:
-python 99_build_prototype.py
+# edit dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml (calipers), then:
+python dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py
 ```
-This rebuilds 01, 02, 03 and 10 (STL + STEP), re-checks every seat against the official WristLarge (`99_check_report.json`) and redraws the `img_` pictures.
+This rebuilds 01, 02, 03 and 10 (STL + STEP), re-checks every seat against the official WristLarge (`dona_univ_robot_hand_2026-11-13_Sanjev_99_check_report.json`) and redraws the `img_` pictures.
 
-Mechanical base: InMoov Hand i2 © Gaël Langevin, CC BY-NC 3.0 (non-commercial). See `../../ATTRIBUTION.md`.
+Mechanical base: InMoov Hand i2 © Gaël Langevin, CC BY-NC 3.0 (non-commercial). See `../../dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md`.

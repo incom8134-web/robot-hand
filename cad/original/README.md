@@ -1,6 +1,6 @@
 # Original InMoov files (unmodified)
 
-Kept exactly as downloaded from inmoov.fr on 2026-11-11 — see `SHA256SUMS.txt` (run `sha256sum -c SHA256SUMS.txt` here).
+Kept exactly as downloaded from inmoov.fr on 2026-11-11 — see `dona_univ_robot_hand_2026-11-13_Sanjev_sha256sums.txt` (run `sha256sum -c dona_univ_robot_hand_2026-11-13_Sanjev_sha256sums.txt` here).
 These are for the **later build with big servos** (JX PDI-6225MG / MG996R class). For the ES08MA II prototype use `../prototype/`.
 
 | Folder | Files |
@@ -12,4 +12,4 @@ How InMoov says the Hand i2 can be built (inmoov.fr/inmoov-hand): (1) JX PDI-622
 (2) the same servos mounted directly in the palm (WristLarge slots, PDI6225 covers), (3) small JX-PDI1109MG / SG90-type
 servos in an adapter in the palm, with elastic thread instead of springs. **The prototype uses option 3.**
 
-**License:** InMoov © Gaël Langevin, CC BY-NC 3.0 — attribution required, non-commercial only. See `../../ATTRIBUTION.md`.
+**License:** InMoov © Gaël Langevin, CC BY-NC 3.0 — attribution required, non-commercial only. See `../../dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md`.

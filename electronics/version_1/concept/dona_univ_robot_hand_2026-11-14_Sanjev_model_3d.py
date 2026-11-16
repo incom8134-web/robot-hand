@@ -1,8 +1,8 @@
 """CadQuery 3D mock-up of the HAEBOT Hand Controller v2 (+ simplified Raspberry Pi 5),
 STEP export and offscreen renders (numpy z-buffer rasteriser, no GPU needed).
 
-Run:  python model_3d.py            -> ../HAEBOT_HandController_v2_concept.step (+ _STEP_full.zip)
-                                       ../renders/3d_top.png, 3d_iso_with_pi.png, 3d_iso_no_pi.png
+Run:  python dona_univ_robot_hand_2026-11-14_Sanjev_model_3d.py            -> ../dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept.step (+ _STEP_full.zip)
+                                       ../renders/dona_univ_robot_hand_2026-11-14_Sanjev_3d_top.png, dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_with_pi.png, dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_no_pi.png
 """
 import os, sys, math, numpy as np, cadquery as cq
 import matplotlib
@@ -14,7 +14,7 @@ from layout import *
 HERE = os.path.dirname(os.path.abspath(__file__))
 ELEC = os.path.abspath(os.path.join(HERE, ".."))
 REND = os.path.join(ELEC, "renders")
-LOGO_DXF = os.path.join(ELEC, "..", "docs", "brand", "jinie_icon_logo2d.dxf")
+LOGO_DXF = os.path.join(ELEC, "..", "docs", "brand", "dona_univ_robot_hand_2026-11-13_Sanjev_jinie_icon_logo2d.dxf")
 T = BOARD_T
 FONT = "DejaVu Sans"
 
@@ -313,21 +313,21 @@ if __name__ == "__main__":
     os.makedirs(REND, exist_ok=True)
     import zipfile, tempfile
     # light raw STEP (no silkscreen text) + zip with the full-detail versions (repo keeps huge STEPs zipped)
-    export_step({"board"}, os.path.join(ELEC, "HAEBOT_HandController_v2_concept.step"), silk=False)
+    export_step({"board"}, os.path.join(ELEC, "dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept.step"), silk=False)
     tmp = tempfile.mkdtemp()
     full = [("HAEBOT_HandController_v2_concept_full_silk.step", {"board"}),
             ("HAEBOT_HandController_v2_concept_with_Pi5.step", {"board", "pi"})]
-    with zipfile.ZipFile(os.path.join(ELEC, "HAEBOT_HandController_v2_concept_STEP_full.zip"), "w", zipfile.ZIP_DEFLATED) as z:
+    with zipfile.ZipFile(os.path.join(ELEC, "dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept_step_full.zip"), "w", zipfile.ZIP_DEFLATED) as z:
         for fn, g in full:
             export_step(g, os.path.join(tmp, fn)); z.write(os.path.join(tmp, fn), fn)
     print("STEP ok")
     which = sys.argv[1:] or ["top", "iso_pi", "iso"]
     if "top" in which:
-        render({"board"}, (0, 0, 1), (0, 1, 0), os.path.join(REND, "3d_top.png"), W=2400, H=1450, label_groups={"board"},
+        render({"board"}, (0, 0, 1), (0, 1, 0), os.path.join(REND, "dona_univ_robot_hand_2026-11-14_Sanjev_3d_top.png"), W=2400, H=1450, label_groups={"board"},
                title="HAEBOT Hand Controller v2 — 3D top view (Pi removed)", subtitle="115 × 56 mm 4-layer (preliminary) · TPSM41625 6 V · TPS56837 5.1 V · TMC2209 · Pi 5 mounts on the four gold holes")
     if "iso_pi" in which:
-        render({"board", "pi"}, (-0.62, -0.95, 0.85), (0, 0, 1), os.path.join(REND, "3d_iso_with_pi.png"), W=2400, H=1550, label_groups={"pi", "key"},
+        render({"board", "pi"}, (-0.62, -0.95, 0.85), (0, 0, 1), os.path.join(REND, "dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_with_pi.png"), W=2400, H=1550, label_groups={"pi", "key"},
                title="HAEBOT Hand Controller v2 + Raspberry Pi 5 — stacked", subtitle="Pi 5 on M2.5 × 18 mm standoffs · open zone (left) keeps XT60, 20 A fuse and servo headers accessible · 7-pin locking PI-LINK")
     if "iso" in which:
-        render({"board"}, (-0.62, -0.95, 0.85), (0, 0, 1), os.path.join(REND, "3d_iso_no_pi.png"), W=2400, H=1550, label_groups={"key"},
+        render({"board"}, (-0.62, -0.95, 0.85), (0, 0, 1), os.path.join(REND, "dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_no_pi.png"), W=2400, H=1550, label_groups={"key"},
                title="HAEBOT Hand Controller v2 — isometric (Pi removed)", subtitle="all parts under the Pi ≤ 12 mm tall · real package sizes · concept placement, not a routed PCB")

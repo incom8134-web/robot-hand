@@ -1,7 +1,7 @@
 # HAEBOT Hand prototype (EMAX ES08MA II in the official InMoov i2 WristLarge) - all mm.
 # Tags: [DWG] user's EMAX drawing, [CAL] user's caliper, [REF] generic micro-servo drawing (SG90 type),
-#       [SRC] measured from the official STL by 99_build_prototype.py, [EST] estimate, [VERIFY] must be checked on the real part.
-# Edit, then run:  python 99_build_prototype.py
+#       [SRC] measured from the official STL by dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py, [EST] estimate, [VERIFY] must be checked on the real part.
+# Edit, then run:  python dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py
 
 clearance: 0.4              # per side, servo body and tabs in the seat ("wiggle room"). 0.3 = tighter, 0.5 = looser.
 

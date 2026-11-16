@@ -55,7 +55,7 @@ Write `docs/00_source_review.md`: for each source, what you verified, what you c
 haebot-hand-i2-v1/
 ├── README.md
 ├── LICENSE                    # our own content; explain mixed licensing
-├── ATTRIBUTION.md             # InMoov / Gael Langevin, geigermartin, others
+├── dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md             # InMoov / Gael Langevin, geigermartin, others
 ├── CHANGELOG.md
 ├── docs/
 │   ├── 00_source_review.md

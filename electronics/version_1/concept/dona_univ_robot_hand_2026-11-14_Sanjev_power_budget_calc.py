@@ -1,11 +1,11 @@
 """HAEBOT Hand Controller v2 (final component selection) - power budget calculator.
 
-Run:  /workspace/venv/bin/python concept/power_budget_calc.py  ->  ../power_budget.csv + printed summary
-Sources [S..] are listed in power_budget.md.  ASSUMPTION = no datasheet figure, must be measured.
+Run:  /workspace/venv/bin/python concept/dona_univ_robot_hand_2026-11-14_Sanjev_power_budget_calc.py  ->  ../dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv + printed summary
+Sources [S..] are listed in dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md.  ASSUMPTION = no datasheet figure, must be measured.
 """
 import csv, math, os
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "..", "power_budget.csv")
+OUT = os.path.join(HERE, "..", "dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv")
 VIN = 12.0
 
 # ---------------- rail set-points

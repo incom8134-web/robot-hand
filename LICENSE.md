@@ -15,6 +15,6 @@ Copyright © 2026 지니에듀테크(주) (Genie EduTech Co., Ltd.)
    company. Until then, all rights are reserved; viewing and non-commercial
    educational use with attribution are permitted.
 
-3. Third-party references are listed in [ATTRIBUTION.md](ATTRIBUTION.md).
+3. Third-party references are listed in [dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md](dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md).
 
 This notice will be updated once the license audit (Stage S1) is complete.

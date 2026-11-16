@@ -25,7 +25,7 @@ Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servo
 
 > ⚠️ **Project status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
 
-### 🖨️ Start here → [`cad/prototype/`](cad/prototype/) — one flat folder, files numbered in print order: [`PRINT_LIST.md`](cad/prototype/PRINT_LIST.md) · [`ASSEMBLY_GUIDE.md`](cad/prototype/ASSEMBLY_GUIDE.md)
+### 🖨️ Start here → [`cad/prototype/`](cad/prototype/) — one flat folder, files numbered in print order: [`dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md`](cad/prototype/dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md) · [`dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md`](cad/prototype/dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md)
 
 ## 🎯 V1 Goals
 
@@ -69,12 +69,12 @@ flowchart LR
 ```
 robot-hand/
 ├── README.md
-├── ATTRIBUTION.md         # InMoov / third-party credits
+├── dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md         # InMoov / third-party credits
 ├── LICENSE.md             # licensing notice (non-commercial)
 ├── docs/
-│   └── 해봇핸드i2_프로젝트계획서_261111.docx   # Project plan (management report)
+│   └── 동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_프로젝트계획서.docx   # Project plan (management report)
 ├── prompts/
-│   └── 해봇핸드i2_구현프롬프트_261111.md        # Claude implementation brief
+│   └── 동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_구현프롬프트.md        # Claude implementation brief
 ├── cad/
 │   ├── README.md          # which folder is what
 │   ├── prototype/         # ⭐ ONE flat folder: 01_… 10_ parts (STL + STEP), PRINT_LIST, ASSEMBLY_GUIDE, images, 99_ generator
@@ -100,8 +100,8 @@ Version 2 is pre-schematic. See its README for the open items.
 
 | Document | Description |
 |---|---|
-| [📘 Project Plan (DOCX)](docs/해봇핸드i2_프로젝트계획서_261111.docx) | Objective, architecture, scope, BOM, stages, milestones, risks, acceptance tests, approval sheet |
-| [🧠 Implementation Prompt (MD)](prompts/해봇핸드i2_구현프롬프트_261111.md) | Copy-ready brief for Claude to build the full engineering repo with strict no-fabrication rules |
+| [📘 Project Plan (DOCX)](docs/동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_프로젝트계획서.docx) | Objective, architecture, scope, BOM, stages, milestones, risks, acceptance tests, approval sheet |
+| [🧠 Implementation Prompt (MD)](prompts/동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_구현프롬프트.md) | Copy-ready brief for Claude to build the full engineering repo with strict no-fabrication rules |
 
 ## 🗓️ Roadmap
 
@@ -158,11 +158,11 @@ Files are labelled `PLANNED → DESIGNED → GENERATED → PRINTED → ASSEMBLED
 - Mechanical design is derived from **InMoov Hand i2 © Gael Langevin**, released under a Creative Commons **Non-Commercial** license (exact version to be confirmed on [inmoov.fr](https://inmoov.fr/hand-i2/)).
 - Unmodified InMoov STL files are kept in `cad/original/` for our internal build (InMoov is **CC BY-NC 3.0** — attribution required, non-commercial only). **This repository is intended to be private.**
 - Any future part derived from an InMoov file inherits CC BY-NC 3.0. **No commercial use or sale** of InMoov-derived parts without the author's permission.
-- See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE.md](LICENSE.md).
+- See [dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md](dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md) and [LICENSE.md](LICENSE.md).
 
 ## 🔗 References
 
-1. **PRIMARY vision-to-hand** — [Bolofofopt/HumanoidRoboticArmVision](https://github.com/Bolofofopt/HumanoidRoboticArmVision) (architecture reference; see [docs/references.md](docs/references.md))
+1. **PRIMARY vision-to-hand** — [Bolofofopt/HumanoidRoboticArmVision](https://github.com/Bolofofopt/HumanoidRoboticArmVision) (architecture reference; see [docs/dona_univ_robot_hand_2026-11-13_Sanjev_references.md](docs/dona_univ_robot_hand_2026-11-13_Sanjev_references.md))
 2. InMoov Hand i2 — <https://inmoov.fr/hand-i2/>
 3. geigermartin/prostheticHand — <https://github.com/geigermartin/prostheticHand>
 4. Reference video — <https://www.youtube.com/watch?v=7KV5489rL3c>

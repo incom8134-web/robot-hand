@@ -91,4 +91,4 @@ Do not port these as-is:
 Do not add these repos as git submodules and do not copy their trees into this
 project. Link here, then write our own firmware and vision code.
 
-See also [ATTRIBUTION.md](../ATTRIBUTION.md) and [LICENSE.md](../LICENSE.md).
+See also [dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md](../dona_univ_robot_hand_2026-11-13_Sanjev_attribution.md) and [LICENSE.md](../LICENSE.md).

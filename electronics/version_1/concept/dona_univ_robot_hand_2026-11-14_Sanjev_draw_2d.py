@@ -1,10 +1,10 @@
 """2D drawings for the HAEBOT Hand Controller v2 concept.
 
-  ../renders/layout_top.png              to-scale top view, every part with ref + name
-  ../renders/wiring_back_colorcoded.png  BOTTOM view (mirrored), colour-coded nets, every part ref + name + purpose
-  ../renders/power_tree_v2.png           power tree with amps / watts per branch (numbers from power_budget.csv)
+  ../renders/dona_univ_robot_hand_2026-11-14_Sanjev_layout_top.png              to-scale top view, every part with ref + name
+  ../renders/dona_univ_robot_hand_2026-11-14_Sanjev_wiring_back_colorcoded.png  BOTTOM view (mirrored), colour-coded nets, every part ref + name + purpose
+  ../renders/dona_univ_robot_hand_2026-11-14_Sanjev_power_tree_v2.png           power tree with amps / watts per branch (numbers from dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv)
 
-Run with the repo venv:  /workspace/venv/bin/python draw_2d.py
+Run with the repo venv:  /workspace/venv/bin/python dona_univ_robot_hand_2026-11-14_Sanjev_draw_2d.py
 """
 import os, sys, csv, numpy as np, matplotlib
 matplotlib.use("Agg")
@@ -230,7 +230,7 @@ def draw_nets(ax, X):
 def wiring_png(path):
     fig, ax, X = sheet(path, True, "HAEBOT Hand Controller v2 — colour-coded wiring, BOTTOM VIEW (what goes where)",
         "All 4 copper layers flattened into one picture for understanding (L1 top · L2 solid GND · L3 power planes · L4 bottom). Routes are schematic, not final traces. "
-        "Line width ∝ current; currents = worst case from power_budget.md.",
+        "Line width ∝ current; currents = worst case from dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md.",
         "Jinie EduTech · HAEBOT Hand i2 V1 · controller v2 concept · not a routed PCB", nets=True)
     ax.text(X(BOARD_L / 2), BOARD_W + 8.0, "BOTTOM VIEW — board flipped left ↔ right (mirrored): XT60, fuse and servo headers are on the RIGHT here",
             ha="center", va="center", fontsize=14, weight="bold", color="#c92a2a",
@@ -256,7 +256,7 @@ def wiring_png(path):
 
 # ------------------------------------------------------------------ power tree
 def load_budget():
-    rows = list(csv.DictReader(open(os.path.join(ELEC, "power_budget.csv"))))
+    rows = list(csv.DictReader(open(os.path.join(ELEC, "dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv"))))
     g = lambda ref: next(r for r in rows if r["ref"] == ref)
     return g
 
@@ -323,7 +323,7 @@ def power_png(path):
         "AC 4 A T · F1 20 A (board) · F2 2 A (motor)", "6 V / 5.1 V: regulator current limit + hiccup",
         "D1 SMBJ13A: TPSM41625 PVIN abs. max 17 V →", "   keep LRS at 12.0 V, no hot-plug (validate)",
         "USB VBUS only reaches the MCU (B5819W OR)", "board heat: 3.5 W typ · 7.8 W worst",
-        "AC side: 53 W typ · 158 W worst (85 % eff.)", "all numbers: power_budget.md / .csv"], "#f1f3f5", Gr)
+        "AC side: 53 W typ · 158 W worst (85 % eff.)", "all numbers: dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md / .csv"], "#f1f3f5", Gr)
     arrow((3.6, 5.9), (3.6, 5.0), O, txt="15 A / 89 W", off=(0.15, 0))
     arrow((10.7, 5.9), (10.7, 5.0), Y, txt="5.2 A / 26.5 W", off=(0.15, 0))
     fig.suptitle("HAEBOT Hand Controller v2 — power tree (typical / worst case, amps and watts per branch)", fontsize=18, weight="bold", y=0.985)
@@ -334,6 +334,6 @@ def power_png(path):
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    layout_png(os.path.join(OUT, "layout_top.png"))
-    wiring_png(os.path.join(OUT, "wiring_back_colorcoded.png"))
-    power_png(os.path.join(OUT, "power_tree_v2.png"))
+    layout_png(os.path.join(OUT, "dona_univ_robot_hand_2026-11-14_Sanjev_layout_top.png"))
+    wiring_png(os.path.join(OUT, "dona_univ_robot_hand_2026-11-14_Sanjev_wiring_back_colorcoded.png"))
+    power_png(os.path.join(OUT, "dona_univ_robot_hand_2026-11-14_Sanjev_power_tree_v2.png"))

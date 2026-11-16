@@ -2,7 +2,7 @@
 
 Jinie EduTech · HAEBOT Hand i2 V1 · controller board v2 · **preliminary, not a production-approved design**
 Components fixed by the project owner (2026-11-12): **TPSM41625** (6 V servo rail), **TPS56837** (5.1 V Pi rail), **TMC2209** (NEMA 17), PCA9685 @ 3.3 V, ATmega328P @ 5 V, CH340C, 2× SN74LVC1T45, TLV75533P, Mean Well 12 V 20 A+ SMPS, 7-pin locking Pi link, 4-layer ~115 × 56 mm PCB.
-Every number is from a datasheet [S#] or marked **ASSUMPTION** (must be measured). Machine-readable: `power_budget.csv`; recompute: `/workspace/venv/bin/python concept/power_budget_calc.py`.
+Every number is from a datasheet [S#] or marked **ASSUMPTION** (must be measured). Machine-readable: `dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv`; recompute: `/workspace/venv/bin/python concept/dona_univ_robot_hand_2026-11-14_Sanjev_power_budget_calc.py`.
 
 ---
 

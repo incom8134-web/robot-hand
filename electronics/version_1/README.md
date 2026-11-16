@@ -2,7 +2,7 @@
 
 Jinie EduTech · HAEBOT Hand i2 V1 · custom controller board that carries a Raspberry Pi 5 on top.
 **Status: concept / pre-schematic. Component selection is fixed. The BOM is NOT production-approved.
-See "Validation still required before JLCPCB" in [power_budget.md](power_budget.md#9-validation-still-required-before-jlcpcb-owners-list).**
+See "Validation still required before JLCPCB" in [dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md](dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md#9-validation-still-required-before-jlcpcb-owners-list).**
 The old v1 concept (A4988, Pololu buck modules) was removed; it is only in git history (commit 0bed944).
 
 ## What the board does
@@ -28,7 +28,7 @@ The old v1 concept (A4988, Pololu buck modules) was removed; it is only in git h
 | Pi UART levels | **2× SN74LVC1T45** | one per direction (U7 Pi→MCU, U8 MCU→Pi) |
 | 3.3 V | **TLV75533P** LDO from 5.1 V | 42 mA worst of 500 mA |
 | Supply | **Mean Well LRS-350-12** (12 V 29 A) + IEC inlet (4 A T) | worst 11.2 A = 39 % |
-| Pi link | **J5 7-pin locking**: 2× 5.1 V, 3× GND, TX, RX | recommended **Molex Micro-Fit 3.0** 43650-0713 (5 A/pin). The reset line was dropped; see power_budget.md §5.1 for the 8-pin option |
+| Pi link | **J5 7-pin locking**: 2× 5.1 V, 3× GND, TX, RX | recommended **Molex Micro-Fit 3.0** 43650-0713 (5 A/pin). The reset line was dropped; see dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md §5.1 for the 8-pin option |
 | PCB | 4-layer, 115 × 56 mm (preliminary) | L1 2 oz / L2 GND / L3 power / L4 2 oz |
 
 **TMC2209 choice: onboard IC + standalone mode.**
@@ -36,7 +36,7 @@ The old v1 concept (A4988, Pololu buck modules) was removed; it is only in git h
 - **Standalone mode:** current and microstepping are fixed by resistors, so the motor is safe without any firmware setup, which suits students.
 - **UART option:** close JP1 to teach UART current/StallGuard later.
 
-## Key numbers (from [power_budget.md](power_budget.md) / [power_budget.csv](power_budget.csv))
+## Key numbers (from [dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md](dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md) / [dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv](dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv))
 | | Typical | Worst |
 |---|---|---|
 | 6 V servo rail | 4.2 A · 25 W | **15.0 A · 89 W** (all six stalled at 2.5 A). Clone peak 18 A |
@@ -51,22 +51,22 @@ The old v1 concept (A4988, Pololu buck modules) was removed; it is only in git h
 ## Drawings (all generated from `concept/`)
 | File | What |
 |---|---|
-| [renders/wiring_back_colorcoded.png](renders/wiring_back_colorcoded.png) | **BOTTOM view (mirrored)**, colour-coded nets, every part with ref + name + purpose (side tables) |
-| [renders/power_tree_v2.png](renders/power_tree_v2.png) | power tree, amps and watts per branch |
-| [renders/layout_top.png](renders/layout_top.png) | to-scale top view, real package sizes, Pi outline |
-| [renders/3d_top.png](renders/3d_top.png), [3d_iso_no_pi.png](renders/3d_iso_no_pi.png), [3d_iso_with_pi.png](renders/3d_iso_with_pi.png) | 3D mock-up with callouts |
-| [HAEBOT_HandController_v2_concept.step](HAEBOT_HandController_v2_concept.step) | light STEP of the board (no silkscreen text) |
-| [HAEBOT_HandController_v2_concept_STEP_full.zip](HAEBOT_HandController_v2_concept_STEP_full.zip) | full STEP with silkscreen, and board + Pi 5 + standoffs + PI-LINK cable |
+| [renders/dona_univ_robot_hand_2026-11-14_Sanjev_wiring_back_colorcoded.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_wiring_back_colorcoded.png) | **BOTTOM view (mirrored)**, colour-coded nets, every part with ref + name + purpose (side tables) |
+| [renders/dona_univ_robot_hand_2026-11-14_Sanjev_power_tree_v2.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_power_tree_v2.png) | power tree, amps and watts per branch |
+| [renders/dona_univ_robot_hand_2026-11-14_Sanjev_layout_top.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_layout_top.png) | to-scale top view, real package sizes, Pi outline |
+| [renders/dona_univ_robot_hand_2026-11-14_Sanjev_3d_top.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_3d_top.png), [dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_no_pi.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_no_pi.png), [dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_with_pi.png](renders/dona_univ_robot_hand_2026-11-14_Sanjev_3d_iso_with_pi.png) | 3D mock-up with callouts |
+| [dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept.step](dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept.step) | light STEP of the board (no silkscreen text) |
+| [dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept_step_full.zip](dona_univ_robot_hand_2026-11-14_Sanjev_haebot_handcontroller_v2_concept_step_full.zip) | full STEP with silkscreen, and board + Pi 5 + standoffs + PI-LINK cable |
 
 Net colours: 12 V red · 6 V orange · 5.1 V yellow · 3.3 V gold · GND green hatched · I²C blue · UART purple · stepper cyan · USB magenta · other grey.
 
 **Regenerate** (needs the repo venv with cadquery):
 ```
 cd electronics/concept
-/workspace/venv/bin/python power_budget_calc.py   # -> ../power_budget.csv + printed summary
-/workspace/venv/bin/python layout.py              # placement sanity check (overlap / holes / height <= 12 mm under the Pi)
-/workspace/venv/bin/python draw_2d.py             # layout_top, wiring_back_colorcoded, power_tree_v2
-/workspace/venv/bin/python model_3d.py            # STEP + 3D renders
+/workspace/venv/bin/python dona_univ_robot_hand_2026-11-14_Sanjev_power_budget_calc.py   # -> ../dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv + printed summary
+/workspace/venv/bin/python dona_univ_robot_hand_2026-11-14_Sanjev_layout.py              # placement sanity check (overlap / holes / height <= 12 mm under the Pi)
+/workspace/venv/bin/python dona_univ_robot_hand_2026-11-14_Sanjev_draw_2d.py             # layout_top, wiring_back_colorcoded, power_tree_v2
+/workspace/venv/bin/python dona_univ_robot_hand_2026-11-14_Sanjev_model_3d.py            # STEP + 3D renders
 ```
 
 ## Board zones
@@ -107,7 +107,7 @@ cd electronics/concept
   - Only after validation item 4 passes (5 A through the cable for 30 min, ΔT < 20 °C, ≥ 4.9 V at the Pi) may you set `usb_max_current_enable=1` in `/boot/firmware/config.txt`, or `PSU_MAX_CURRENT=5000` in the EEPROM.
   - Never plug the Pi's own USB-C supply in at the same time as J5.
 
-## Honest open issues (also in power_budget.md §9)
+## Honest open issues (also in dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md §9)
 1. **TPSM41625 at 6 V:**
    - It is rated ≈20 A, not 25 A.
    - Six servos stalled continuously (15 A) is thermally marginal on this small board under the Pi: estimated T_J ≈ 126 °C (ASSUMPTION 20 °C/W).
@@ -127,7 +127,7 @@ cd electronics/concept
 10. **Layout is not yet a real PCB:** the placement is a concept. Do the KiCad schematic, layout and DRC before JLCPCB.
 
 ## Files
-- `power_budget.md` — full power, thermal, fuse, copper, connector and capacitor analysis, the senior FAQ, the validation list and sources.
-- `power_budget.csv` and `concept/power_budget_calc.py` — the numbers and the script that computes them.
-- `bom_controller_v2.csv` — every line has ref, value, MPN, package, LCSC# (verified by search, otherwise "TBD"), qty, rail and purpose.
-- `concept/layout.py` (placement, the single source of truth), `concept/draw_2d.py`, `concept/model_3d.py`.
+- `dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.md` — full power, thermal, fuse, copper, connector and capacitor analysis, the senior FAQ, the validation list and sources.
+- `dona_univ_robot_hand_2026-11-14_Sanjev_power_budget.csv` and `concept/dona_univ_robot_hand_2026-11-14_Sanjev_power_budget_calc.py` — the numbers and the script that computes them.
+- `dona_univ_robot_hand_2026-11-14_Sanjev_bom_controller_v2.csv` — every line has ref, value, MPN, package, LCSC# (verified by search, otherwise "TBD"), qty, rail and purpose.
+- `concept/dona_univ_robot_hand_2026-11-14_Sanjev_layout.py` (placement, the single source of truth), `concept/dona_univ_robot_hand_2026-11-14_Sanjev_draw_2d.py`, `concept/dona_univ_robot_hand_2026-11-14_Sanjev_model_3d.py`.

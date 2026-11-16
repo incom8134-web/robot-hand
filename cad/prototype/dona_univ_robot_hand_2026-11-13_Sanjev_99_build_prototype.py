@@ -2,20 +2,20 @@
 """HAEBOT Hand prototype - ONE script for all our parts, checks and guide images.
 
 What it makes (all in this folder, flat):
-  01_FitTest_ServoSeat.step/.stl         one ES08MA II seat, prints in ~10 min
-  02_ServoAdapter_ES08MA-II_x5.step/.stl drops into each servo slot of the OFFICIAL i2_WristLargeV2
-  03_Pulley_ES08MA-II_x5.step/.stl       tendon pulley on the servo's stock single-arm horn
-  10_DeskStand.step/.stl                 holds the hand upright by its wrist prongs (M8 bolt)
+  dona_univ_robot_hand_2026-11-13_Sanjev_01_fittest_servoseat.step/.stl         one ES08MA II seat, prints in ~10 min
+  dona_univ_robot_hand_2026-11-13_Sanjev_02_servoadapter_es08ma_ii_x5.step/.stl drops into each servo slot of the OFFICIAL i2_WristLargeV2
+  dona_univ_robot_hand_2026-11-13_Sanjev_03_pulley_es08ma_ii_x5.step/.stl       tendon pulley on the servo's stock single-arm horn
+  dona_univ_robot_hand_2026-11-13_Sanjev_10_deskstand.step/.stl                 holds the hand upright by its wrist prongs (M8 bolt)
   img_*.png                              assembly-guide and verification images
-  99_check_report.json                   numbers from the checks
+  dona_univ_robot_hand_2026-11-13_Sanjev_99_check_report.json                   numbers from the checks
 
 Why an adapter and not a re-cut WristLarge: InMoov's own "small servo" option (inmoov.fr/inmoov-hand,
 option 3) puts JX-PDI1109MG / SG90-size servos in an adapter (i2_Adapter1109MG) that drops into
 the unmodified WristLarge slot. The ES08MA II is the same size class, so we follow that method with
 our own adapter cut for the ES08MA II (+ wiggle room). The WristLarge you already printed is reused.
 
-Run (from anywhere):  python 99_build_prototype.py          (build + check + images)
-                      python 99_build_prototype.py --no-img (build + check only)
+Run (from anywhere):  python dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py          (build + check + images)
+                      python dona_univ_robot_hand_2026-11-13_Sanjev_99_build_prototype.py --no-img (build + check only)
 Needs: cadquery, trimesh, manifold3d, shapely, matplotlib, pyyaml
 """
 import json, sys, pathlib
@@ -26,7 +26,7 @@ from shapely.geometry import Polygon
 
 HERE = pathlib.Path(__file__).resolve().parent
 ORIG = HERE.parent / "original" / "hand_i2"
-P = yaml.safe_load((HERE / "99_parameters.yaml").read_text())
+P = yaml.safe_load((HERE / "dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml").read_text())
 C = P["clearance"]; S = P["servo"]; T = P["seat"]; PU = P["pulley"]; ST = P["stand"]
 
 # ------------------------------------------------------------------ derived seat numbers (local frame)
@@ -315,27 +315,27 @@ def render_all(ctx):
 
     # ---------- 01 parts overview
     plt_, fig = _fig("Prototype print set - what each numbered file looks like", 16, 8)
-    parts = [("01_FitTest_ServoSeat.stl", "01 Fit test seat  x1", BLUE),
-             ("02_ServoAdapter_ES08MA-II_x5.stl", "02 Servo adapter  x5", BLUE),
-             ("03_Pulley_ES08MA-II_x5.stl", "03 Pulley  x5", ORANGE),
-             ("04_WristLarge_official.stl", "04 WristLarge (official)  x1", GREY),
-             ("05_Fingers_official_plate.stl", "05 Fingers plate (official)  x1", GREY),
-             ("06_FingerTips_official_plate.stl", "06 Finger tips plate (official)  x1", GREY),
-             ("07_FingerCover_official.stl", "07 Finger cover (official)  x1", GREY),
-             ("08_PalmCover_official.stl", "08 Palm cover (official)  x1", GREY),
-             ("09_HandCover_JinieLogo.stl", "09 Hand cover, Jinie logo  x1", BEIGE),
-             ("10_DeskStand.stl", "10 Desk stand  x1", GREEN)]
+    parts = [("dona_univ_robot_hand_2026-11-13_Sanjev_01_fittest_servoseat.stl", "01 Fit test seat  x1", BLUE),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_02_servoadapter_es08ma_ii_x5.stl", "02 Servo adapter  x5", BLUE),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_03_pulley_es08ma_ii_x5.stl", "03 Pulley  x5", ORANGE),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_04_wristlarge_official.stl", "04 WristLarge (official)  x1", GREY),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_05_fingers_official_plate.stl", "05 Fingers plate (official)  x1", GREY),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_06_fingertips_official_plate.stl", "06 Finger tips plate (official)  x1", GREY),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_07_fingercover_official.stl", "07 Finger cover (official)  x1", GREY),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_08_palmcover_official.stl", "08 Palm cover (official)  x1", GREY),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_09_handcover_jinielogo.stl", "09 Hand cover, Jinie logo  x1", BEIGE),
+             ("dona_univ_robot_hand_2026-11-13_Sanjev_10_deskstand.stl", "10 Desk stand  x1", GREEN)]
     for i, (f, t, c) in enumerate(parts):
         ax = fig.add_subplot(2, 5, i + 1, projection="3d")
         draw_meshes(ax, [(ld(f), c)], 35, -60)
         b = ld(f).extents
         ax.set_title(f"{t}\n{b[0]:.0f} x {b[1]:.0f} x {b[2]:.0f} mm", fontsize=9, color=BRAND)
-    _save(plt_, fig, ctx, "img_01_parts_overview.png", "Blue/orange/green = our parts (STEP + STL).  Grey/beige = official InMoov i2 meshes (STL).  Shown in print orientation.")
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_01_parts_overview.png", "Blue/orange/green = our parts (STEP + STL).  Grey/beige = official InMoov i2 meshes (STL).  Shown in print orientation.")
 
     # ---------- 02 fit test
     plt_, fig = _fig("Step 2 - Fit test: does the ES08MA II drop in with a little wiggle room?", 14, 7)
     zb = ctx.P["seat"]["ledge_z"] - 4.0
-    co = ld("01_FitTest_ServoSeat.stl")
+    co = ld("dona_univ_robot_hand_2026-11-13_Sanjev_01_fittest_servoseat.stl")
     du = ctx.m_du.copy(); du.apply_translation([0, 0, -zb])
     ax = fig.add_subplot(1, 2, 1, projection="3d")
     dup = du.copy(); dup.apply_translation([0, 0, 28])
@@ -351,9 +351,9 @@ def render_all(ctx):
     ax = fig.add_subplot(1, 2, 2, projection="3d")
     draw_meshes(ax, [(co, BLUE), (du, DARK)], 25, -55, zoom=0.75)
     ax.set_title("2. tabs rest on the ledge, body hangs below", fontsize=10)
-    _save(plt_, fig, ctx, "img_02_fit_test.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_02_fit_test.png",
           f"Pocket {2*ctx.PK['x']:.1f} x {ctx.PK['y1']-ctx.PK['y0']:.1f} mm, tab recess {2*ctx.PK['x']:.1f} x {ctx.TR['y1']-ctx.TR['y0']:.1f} mm "
-          f"(= servo + {ctx.P['clearance']} mm per side).  Too tight -> clearance 0.5, too loose -> 0.3 in 99_parameters.yaml, re-run.")
+          f"(= servo + {ctx.P['clearance']} mm per side).  Too tight -> clearance 0.5, too loose -> 0.3 in dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml, re-run.")
 
     # ---------- 03 servo into adapter (+ section)
     plt_, fig = _fig("Step 3 - Mount each servo in an adapter (02): shaft goes to the end the engraved arrow points at", 15, 7.5)
@@ -395,7 +395,7 @@ def render_all(ctx):
     ax.set_aspect("equal"); ax.set_xlim(-32, 28); ax.set_ylim(-6, 30); ax.grid(alpha=0.25)
     ax.set_xlabel("along slot (mm)   <- finger end        wrist end ->"); ax.set_ylabel("height (mm)")
     ax.set_title("cut through the middle of one seat (servo = dark)", fontsize=10)
-    _save(plt_, fig, ctx, "img_03_servo_into_adapter.png")
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_03_servo_into_adapter.png")
 
     # ---------- 04 adapters into WristLarge
     plt_, fig = _fig("Step 4 - Drop the 5 adapters into the WristLarge from the PALM side", 14, 9)
@@ -411,7 +411,7 @@ def render_all(ctx):
         if lift:
             arrow3d(ax, [c[0] + 14, c[1], lift + 18], [c[0] + 14, c[1], 22])
     draw_meshes(ax, items, 42, -70, zoom=0.62)
-    _save(plt_, fig, ctx, "img_04_adapters_into_wristlarge.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_04_adapters_into_wristlarge.png",
           "Thumb + index shown seated, middle/ring/pinky lifted. Arrow on each adapter points to the fingers. Finger names per seat are from geometry - VERIFY by tracing each tendon.")
 
     # ---------- 05 servo 90 deg + pulley
@@ -434,10 +434,10 @@ def render_all(ctx):
     ax.add_patch(FancyArrowPatch((6, 9), (9, -6), connectionstyle="arc3,rad=-0.5", arrowstyle="->", mutation_scale=18, color=BRAND, lw=2))
     ax.text(10.5, 2, "servo turns this way\n= line wraps on\n= finger CLOSES", fontsize=9, color=BRAND)
     ax.text(-30, -26, "Pulley Ø17 -> 13.4 mm of line per 90 deg.\n180 deg travel = 26.7 mm max.  VERIFY the finger closes fully;\n"
-            "if not, raise pulley dia in 99_parameters.yaml (e.g. 20 mm = 31 mm travel).", fontsize=8.5, color="#333")
+            "if not, raise pulley dia in dona_univ_robot_hand_2026-11-13_Sanjev_99_parameters.yaml (e.g. 20 mm = 31 mm travel).", fontsize=8.5, color="#333")
     ax.set_xlim(-32, 32); ax.set_ylim(-30, 36)
     ax.set_title("top view of one seat (palm side)", fontsize=10)
-    _save(plt_, fig, ctx, "img_05_servo_center_and_pulley.png")
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_05_servo_center_and_pulley.png")
 
     # ---------- 06 top view verification
     plt_, fig = _fig("Check - all 5 ES08MA II seats in the official WristLarge (palm-side view)", 13, 12)
@@ -453,9 +453,9 @@ def render_all(ctx):
         ax.plot([sx, gx], [sy, gy], [45, 45], color="#c0392b", lw=1.5, ls="--", zorder=101)
         c = pl["seat"]["centre"]
         label3d(ax, [c[0] - 9, c[1] + 6, 46], f"{r['finger']}\nch {r['pca_channel']}", size=8)
-    _save(plt_, fig, ctx, "img_06_check_top_view_5_seats.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_06_check_top_view_5_seats.png",
           "Blue = 02 adapter, dark = ES08MA II, orange = 03 pulley.  Red + = servo shaft (on the original JX axis).  Green dot = official tendon guide.  "
-          "Dashed = line run.  0.000 mm3 overlap between any parts (99_check_report.json).")
+          "Dashed = line run.  0.000 mm3 overlap between any parts (dona_univ_robot_hand_2026-11-13_Sanjev_99_check_report.json).")
 
     # ---------- 07 finger + tendon schematic
     plt_, fig = _fig("Step 6-8 - One finger: tendon on the palm side, elastic on the back", 15, 7)
@@ -478,7 +478,7 @@ def render_all(ctx):
     ax.text(-16, 14.5, "guide arch (official)", fontsize=8, color="#555")
     ax.text(-58, -16, "PALM side = up in this sketch.  Servo turns -> tendon shortens -> finger curls.  Servo back -> elastic opens it.", fontsize=9)
     ax.set_xlim(-62, 85); ax.set_ylim(-19, 33)
-    _save(plt_, fig, ctx, "img_07_finger_tendon_elastic.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_07_finger_tendon_elastic.png",
           "Schematic, not to scale.  Channel sizes measured from the official finger STL.  Exact hole-to-hole route through the WristLarge: VERIFY on the print.")
 
     # ---------- 08 wiring
@@ -501,7 +501,7 @@ def render_all(ctx):
     ax.text(0, -6, "Plug brown = GND to the outer pin (check the board silkscreen).  6 V rail: TPSM41625 on the board, or a 6 V / 5 A bench supply for the first test.\n"
             "Never power servos from the Nano/USB 5 V.  Servo GND and logic GND are common on the board.", fontsize=9)
     ax.set_xlim(-2, 140); ax.set_ylim(-12, 80)
-    _save(plt_, fig, ctx, "img_08_wiring_pca9685.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_08_wiring_pca9685.png",
           "Channel = the finger the servo actually pulls (trace the line), not the seat.  Seat-to-finger names are a geometry estimate - VERIFY.")
 
     # ---------- 09 stand
@@ -523,7 +523,7 @@ def render_all(ctx):
     label3d(ax, tp([-95, 82.9, 25]), "M8 x 60 bolt + nyloc nut + 2 washers", color="#555")
     label3d(ax, tp([-13, -20, 40]), "palm faces you, fingers up")
     arrow3d(ax, tp([-13, 125, 10]), tp([-13, 100, 10]), color="#1b8a3a")
-    _save(plt_, fig, ctx, "img_09_desk_stand.png",
+    _save(plt_, fig, ctx, "dona_univ_robot_hand_2026-11-13_Sanjev_img_09_desk_stand.png",
           "The stand tongue fits between the two wrist prongs (gap 32.7 mm measured).  Tighten the nut until the hand stays where you put it.")
 
 
@@ -539,7 +539,7 @@ if __name__ == "__main__":
     m_st_print = export(stand, "10_DeskStand", mesh_transform=trimesh.transformations.translation_matrix([0, 0, yb]) @ Rst)
     m_pu = to_mesh(pu); m_st = to_mesh(stand); m_du = to_mesh(dummy)
 
-    wl = trimesh.load(str(ORIG / "i2_WristLargeV2.stl"))
+    wl = trimesh.load(str(ORIG / "dona_univ_robot_hand_2026-11-13_Sanjev_i2_wristlargev2.stl"))
     seats = name_seats(slot_poses(wl))
     assert len(seats) == 5, f"expected 5 slots, got {len(seats)}"
     rep = dict(parameters=dict(clearance=C), seat={}, seats=[], pairwise={}, notes=[])
@@ -593,7 +593,7 @@ if __name__ == "__main__":
             rep["pairwise"][f"{seats[i]['finger']}-{seats[j]['finger']}"] = round(v, 3)
     rep["stand_vs_wristlarge_mm3"] = round(mesh_inter(m_st, wl), 3)
     print(json.dumps(rep["seat"], indent=1)); print(rep["pairwise"]); print("stand", rep["stand_vs_wristlarge_mm3"])
-    (HERE / "99_check_report.json").write_text(json.dumps(rep, indent=1))
+    (HERE / "dona_univ_robot_hand_2026-11-13_Sanjev_99_check_report.json").write_text(json.dumps(rep, indent=1))
     if want_img:
         from types import SimpleNamespace
         ctx = SimpleNamespace(wl=wl, seats=seats, placed=placed, m_ad=m_ad, m_co=m_co, m_pu=m_pu, m_du=m_du, m_st=m_st,
