@@ -22,7 +22,7 @@ The earlier 3-servo grouping (thumb; index + middle; ring + pinky) stays possibl
 |---|---|
 | [dona_univ_2026-11-16_Sanjev_decisions.md](dona_univ_2026-11-16_Sanjev_decisions.md) | Motors, forearm size, board location, board spec for the developer |
 | [dona_univ_2026-11-16_Sanjev.docx](dona_univ_2026-11-16_Sanjev.docx) | Wiring, block and power diagrams with explanation (English). |
-| [도나유니브_2026-11-16_산지브.docx](도나유니브_2026-11-16_산지브.docx) | Same document in Korean |
+| [동아대_2026-11-16_산지브.docx](동아대_2026-11-16_산지브.docx) | Same document in Korean |
 | [HAEBOT_Robot_Hand_Study_Guide.docx](HAEBOT_Robot_Hand_Study_Guide.docx) | Browsable study guide from electronics to software, with diagrams and source links |
 
 ## Open items
