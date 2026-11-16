@@ -6,3 +6,6 @@ build/
 # slicer output
 *.gcode
 *.3mf
+
+# files downloaded back from Claude (duplicates of what is already tracked)
+Claude outputs/
