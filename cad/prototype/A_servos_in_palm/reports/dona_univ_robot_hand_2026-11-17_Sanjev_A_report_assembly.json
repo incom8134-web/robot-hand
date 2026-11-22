@@ -1,0 +1,13 @@
+{
+ "hand_vs_wrist_block_mm3": 0.0,
+ "hand_vs_forearm_mm3": 0.0,
+ "forearm_vs_base_lid_mm3": 0.0,
+ "board_vs_base_mm3": 0.0,
+ "total_height_mm": 587.4,
+ "forearm_scale": {
+  "width": 1.0,
+  "length_elbow_half": 1.35,
+  "length_wrist_half": 1.1
+ },
+ "note": "fingers placed straight, look only (thumb position approximate)"
+}

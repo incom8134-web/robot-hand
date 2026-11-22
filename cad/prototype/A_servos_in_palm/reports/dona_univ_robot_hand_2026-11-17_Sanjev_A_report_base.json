@@ -1,0 +1,102 @@
+{
+ "status": "CONCEPT - P1 base, not printed",
+ "pan_mm": [
+  238.0,
+  217.0,
+  66.0
+ ],
+ "lid_t": 4.0,
+ "total_height_with_socket": 90.0,
+ "psu": {
+  "model": "Mean Well LRS-350-12",
+  "size": [
+   215.0,
+   115.0,
+   30.0
+  ],
+  "at": [
+   [
+    6.0,
+    86.0,
+    8.0
+   ],
+   [
+    221.0,
+    201.0,
+    38.0
+   ]
+  ],
+  "standoff": 5.0,
+  "overlap_mm3": 0.0
+ },
+ "iec_inlet": {
+  "part": "makePCB P087 (screw mount) - sizes ESTIMATED, measure",
+  "cutout_y_z": [
+   48.8,
+   28.3
+  ],
+  "holes": "2 x M3, 40 mm apart (z)",
+  "centre_y": 34.0,
+  "centre_z": 36.0,
+  "wall": "right side, 3 mm",
+  "mains_zone": [
+   182.0,
+   235.0,
+   3.0,
+   85.0
+  ],
+  "body_overlap_mm3": 0.0
+ },
+ "board": {
+  "size": [
+   100.0,
+   60.0,
+   1.6
+  ],
+  "at": [
+   15.0,
+   12.0,
+   11.0
+  ],
+  "component_height_reserved": 20.0,
+  "holes": "4 x M3 heat-set, 3.5 mm from the edges (TBD)",
+  "overlap_mm3": 0.0
+ },
+ "usb": {
+  "hole": [
+   14.0,
+   9.0
+  ],
+  "pitch": 28.0,
+  "wall": "front"
+ },
+ "forearm_socket": {
+  "follows": "real InMoov elbow-end outline (robpart4/5 assembled, scaled by forearm_build FA_SCALE) + 1.0 mm/side",
+  "height": 20.0,
+  "centre": [
+   119.0,
+   114.5
+  ],
+  "outline_bbox": [
+   72.1,
+   69.6,
+   165.9,
+   159.4
+  ],
+  "forearm_xy_shift": [
+   117.02,
+   134.07
+  ]
+ },
+ "cable_hole": [
+  40.0,
+  20.0
+ ],
+ "lid_screws": 6,
+ "verify": [
+  "LRS-350-12 terminal-block end and fan position",
+  "IEC cutout of the bought inlet",
+  "USB extension hole",
+  "forearm in the socket: test-fit, shim with tape/TPU"
+ ]
+}

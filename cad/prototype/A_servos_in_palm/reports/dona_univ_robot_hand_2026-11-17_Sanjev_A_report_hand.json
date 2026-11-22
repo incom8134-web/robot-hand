@@ -1,0 +1,197 @@
+{
+ "status": "CONCEPT - prototype A, not printed",
+ "sources": {
+  "i2_wristlargev2": "sha256 OK",
+  "i2_handpdi6225v2": "sha256 OK",
+  "i2_palmcoverv2": "sha256 OK"
+ },
+ "servo_step": "sha256 OK",
+ "scale": 1.28,
+ "assembled_hand_palm_bbox_mm": [
+  144.1,
+  180.0,
+  68.5
+ ],
+ "bbox_min": [
+  -78.5,
+  -58.8,
+  -22.9
+ ],
+ "bbox_max": [
+  65.6,
+  121.2,
+  45.5
+ ],
+ "stock_i2_palm_bbox_mm": [
+  112.6,
+  137.7,
+  51.8
+ ],
+ "servo_z0": 11.0,
+ "servo_case_z": [
+  -7.3,
+  28.0
+ ],
+ "min_wall_mm": {
+  "thumb-outer_edge": 5.48,
+  "index-middle": 1.76,
+  "index-outer_edge": 3.71,
+  "middle-ring": 2.54,
+  "middle-outer_edge": 15.2,
+  "ring-pinky": 2.19,
+  "ring-outer_edge": 13.1,
+  "pinky-outer_edge": 3.64
+ },
+ "servo_vs_part_overlap_mm3": {
+  "01_palm_frame": {
+   "thumb": 0.0,
+   "index": 0.0,
+   "middle": 0.0,
+   "ring": 0.0,
+   "pinky": 0.0
+  },
+  "02_back_cover": {
+   "thumb": 0.0,
+   "index": 0.0,
+   "middle": 0.0,
+   "ring": 0.0,
+   "pinky": 0.0
+  },
+  "03_palm_cover": {
+   "thumb": 0.0,
+   "index": 0.0,
+   "middle": 0.0,
+   "ring": 0.0,
+   "pinky": 0.0
+  }
+ },
+ "back_cover_over_horn": {
+  "thumb": {
+   "min_skin_mm": 2.58,
+   "opening_fraction": 0.0
+  },
+  "index": {
+   "min_skin_mm": 2.4,
+   "opening_fraction": 0.0
+  },
+  "middle": {
+   "min_skin_mm": 4.18,
+   "opening_fraction": 0.0
+  },
+  "ring": {
+   "min_skin_mm": 3.78,
+   "opening_fraction": 0.0
+  },
+  "pinky": {
+   "min_skin_mm": 2.4,
+   "opening_fraction": 0.0
+  }
+ },
+ "palm_cover_under_case": {
+  "thumb": {
+   "min_skin_mm": 7.49,
+   "opening_fraction": 0.0
+  },
+  "index": {
+   "min_skin_mm": 2.32,
+   "opening_fraction": 0.0
+  },
+  "middle": {
+   "min_skin_mm": 1.94,
+   "opening_fraction": 0.0
+  },
+  "ring": {
+   "min_skin_mm": 1.97,
+   "opening_fraction": 0.0
+  },
+  "pinky": {
+   "min_skin_mm": 2.23,
+   "opening_fraction": 0.0
+  }
+ },
+ "watertight": {
+  "01_palm_frame": true,
+  "02_back_cover": true,
+  "03_palm_cover": true
+ },
+ "solids": {
+  "01_palm_frame": 1,
+  "02_back_cover": 4,
+  "03_palm_cover": 1
+ },
+ "volume_cm3": {
+  "01_palm_frame": 176.6,
+  "02_back_cover": 128.9,
+  "03_palm_cover": 113.1
+ },
+ "servo_positions": {
+  "thumb": {
+   "id_suggestion": 1,
+   "centre_xy": [
+    -1.4,
+    72.8
+   ],
+   "horn_direction_deg": -11.4,
+   "shaft_xy": [
+    10.8,
+    70.4
+   ]
+  },
+  "index": {
+   "id_suggestion": 2,
+   "centre_xy": [
+    28.0,
+    22.0
+   ],
+   "horn_direction_deg": -85.7,
+   "shaft_xy": [
+    29.0,
+    9.6
+   ]
+  },
+  "middle": {
+   "id_suggestion": 3,
+   "centre_xy": [
+    0.0,
+    10.1
+   ],
+   "horn_direction_deg": -90.0,
+   "shaft_xy": [
+    0.0,
+    -2.4
+   ]
+  },
+  "ring": {
+   "id_suggestion": 4,
+   "centre_xy": [
+    -28.7,
+    25.2
+   ],
+   "horn_direction_deg": -94.9,
+   "shaft_xy": [
+    -29.7,
+    12.8
+   ]
+  },
+  "pinky": {
+   "id_suggestion": 5,
+   "centre_xy": [
+    -55.0,
+    45.7
+   ],
+   "horn_direction_deg": -99.4,
+   "shaft_xy": [
+    -57.1,
+    33.4
+   ]
+  }
+ },
+ "print_also_at_scale": [
+  "i2_FingersX5V2",
+  "i2_FingersTipX5V2",
+  "i2_CoverFingerV3",
+  "i2_WristGearV1 (if the InMoov wrist is used)"
+ ],
+ "knuckle_pin_d": 4.2,
+ "wrist_pin_d": 10.6
+}

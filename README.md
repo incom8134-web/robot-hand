@@ -23,11 +23,11 @@
 HAEBOT Hand i2 V1 is a 3D-printed robotic hand derived from the open-source **[InMoov Hand i2](https://inmoov.fr/hand-i2/)** by Gael Langevin.
 Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servos we already own, drives **all five fingers independently** with tendons and return elastics, and targets a repeatable **Rock / Paper / Scissors** demonstration.
 
-> 🔄 **Current design — updated 2026-11-16.** The finger servos moved. The hand is now driven by **5 x Feetech STS3215 (12 V) smart servos in the forearm**, one per finger, on a half-duplex TTL bus from a custom **ATmega328PB** board — not the palm-mounted EMAX ES08MA II of V1. Electronics: [`electronics/version_2/`](electronics/version_2/). The forearm servo bed and the STS3215 pulleys are **not designed yet**. V1 material below is kept for reference; the rows it supersedes are marked `SUPERSEDED`.
+> 🔄 **Current design — updated 2026-11-17.** The hand uses **5 x Feetech STS3215 smart servos: 3 in the palm/upper hand and 2 immediately below the wrist**, one per finger, on a half-duplex TTL bus from a custom **ATmega328PB** board. The maximum 100 x 60 mm PCB fits in the generated forearm and the PSU lives in the base. CAD: [`cad/current/`](cad/current/). Electronics: [`electronics/version_2/`](electronics/version_2/). Verify the complete servo suffix before power: both 7.4 V and 12 V products use the STS3215 family name.
 
 > ⚠️ **V1 status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
 
-### 🖨️ Start here → [`cad/prototype/`](cad/prototype/) — one flat folder, files numbered in print order: [`dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md`](cad/prototype/dona_univ_robot_hand_2026-11-13_Sanjev_print_list.md) · [`dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md`](cad/prototype/dona_univ_robot_hand_2026-11-14_Sanjev_assembly_guide.md)
+### 🖨️ Start here → [`cad/current/`](cad/current/) — active arm/base STEP + STL, fit checks, parameters, and assembly guide
 
 ## 🎯 V1 Goals
 
@@ -45,8 +45,9 @@ flowchart LR
     PC["Windows PC<br/>Python · OpenCV · MediaPipe"] -- "USB mini-B" --> CH[CH340C]
     CH -- UART0 --> MCU["ATmega328PB<br/>5 V · 16 MHz"]
     MCU -- UART1 --> BUF["Half-duplex TTL<br/>tri-state buffer"]
-    BUF -- "DATA (one wire)" --> SERVO["5 × STS3215 12 V<br/>IDs 1–5, in the forearm"]
-    JACK["12 V DC jack"] --> SERVO
+    BUF -- "DATA (one wire)" --> SERVO["5 × STS3215<br/>IDs 1–5 · 3 palm + 2 forearm"]
+    JACK["12 V DC jack"] --> RAIL["Servo rail<br/>direct only for 12 V variant"]
+    RAIL --> SERVO
     JACK --> REG["12 V → 5 V<br/>regulator"]
     REG --> MCU
     USB5["USB 5 V"] --> MCU
@@ -75,12 +76,12 @@ flowchart LR
 |---|---|---|
 | Fingers | Official i2 fingers printed as-is; Hall sensors & magnets simply not installed, silicone-tip mould not printed | `READY TO PRINT` |
 | Actuation | Tendon flexion + elastic extension | `PLANNED` |
-| Servos | 5 × EMAX ES08MA II **in the palm** (InMoov's official small-servo option) | `SUPERSEDED` — now 5 × STS3215 in the forearm |
-| Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `SUPERSEDED` — a new forearm bed is needed for the STS3215 |
-| Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `SUPERSEDED` — 5 new pulleys to be designed for the STS3215 |
+| Servos | 5 × EMAX ES08MA II **in the palm** (InMoov's official small-servo option) | `SUPERSEDED` — now 5 × STS3215: 3 palm + 2 forearm |
+| Servo seats | 5 × `02_ServoAdapter_ES08MA-II` dropped into the **unmodified** official `i2_WristLargeV2`; shaft on the original servo axis | `SUPERSEDED` — two-servo forearm tray generated; upper-hand mounts are separate |
+| Pulley | `03_Pulley_ES08MA-II`, Ø17 × 10, keyed to the stock ES08MA horn | `SUPERSEDED` — STS3215 horn/pulley interface requires physical horn measurement |
 | Stand | `10_DeskStand` holds the hand upright by its wrist prongs (M8 bolt) — no forearm in the prototype | `GENERATED` |
 | MCU | Custom ATmega328PB board, USB mini-B for data (Arduino Nano in V1) | `PLANNED` |
-| Power | 12 V DC jack straight to the servos; 5 V for the logic from USB or an on-board 12 V → 5 V regulator, **common ground** | `PLANNED` |
+| Power | 12 V DC jack may feed only the confirmed 12 V servo variant; use a correctly sized 7.4 V regulator for the low-voltage variant. Logic gets 5 V from USB or the on-board regulator; all grounds common | `PLANNED` |
 | Sensors | **None in V1** (no Hall sensors, no magnets) | By design |
 
 ## 📂 Repository Structure
@@ -96,11 +97,12 @@ robot-hand/
 │   └── 동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_구현프롬프트.md        # Claude implementation brief
 ├── cad/
 │   ├── README.md          # which folder is what
+│   ├── current/           # active 3+2 STS3215 arm/base CAD, checks, and guide
 │   ├── prototype/         # ⭐ ONE flat folder: 01_… 10_ parts (STL + STEP), PRINT_LIST, ASSEMBLY_GUIDE, images, 99_ generator
 │   └── original/          # unmodified InMoov Hand i2 + forearm servo bed files (for the later big-servo build)
 ├── electronics/
 │   ├── version_1/         # archived: Pi 5 stacked controller concept (power budget, BOM, renders, STEP)
-│   └── version_2/         # current plan: ATmega328PB board, 5 x STS3215 12 V servos, study guide
+│   └── version_2/         # ATmega328PB + STS3215 bus plan; verify servo voltage suffix
 ├── firmware/              # Arduino sketch                                    — coming
 ├── bom/                   # Bill of materials                                 — coming
 └── tests/                 # Test record templates                             — coming
@@ -111,7 +113,7 @@ robot-hand/
 | Version | Plan | Where |
 |---|---|---|
 | 1 | Pi 5 stacked controller, PCA9685, 6 x MG996R, TMC2209 (archived) | [`electronics/version_1/`](electronics/version_1/) |
-| 2 | Custom board (CH340C, ATmega328PB, half-duplex TTL servo bus) driving 5 x Feetech STS3215 12 V servos, one per finger, mounted in the forearm; USB mini-B carries data, a 12 V DC jack powers the servos; PC runs Python, OpenCV, MediaPipe | [`electronics/version_2/`](electronics/version_2/) |
+| 2 | Custom board (CH340C, ATmega328PB, half-duplex TTL servo bus) driving 5 x Feetech STS3215, one per finger, split 3 palm + 2 forearm; USB mini-B carries data; the 12 V input may feed only the confirmed 12 V servo variant | [`electronics/version_2/`](electronics/version_2/) |
 
 Version 2 is pre-schematic. See its README for the open items.
 

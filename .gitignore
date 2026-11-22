@@ -9,3 +9,6 @@ build/
 
 # files downloaded back from Claude (duplicates of what is already tracked)
 Claude outputs/
+
+# full-arm STEP assembly is > 100 MB (GitHub limit) - regenerate with build_assembly_step.py, keep local
+cad/prototype/A_servos_in_palm/assembly/*.step

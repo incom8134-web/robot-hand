@@ -1,0 +1,180 @@
+{
+ "status": "CONCEPT - P1 forearm, not printed",
+ "scale": 1.28,
+ "forearm_scale": {
+  "width": 1.0,
+  "length_elbow_half": 1.35,
+  "length_wrist_half": 1.1
+ },
+ "board_tray_cuts_shell_cm3": 0.0,
+ "print_to_assembly": {
+  "05a_forearm_robpart2": [
+   [
+    1.0,
+    0.0,
+    0.0,
+    0.6171951293945312
+   ],
+   [
+    0.0,
+    1.0,
+    0.0,
+    0.3205280303955078
+   ],
+   [
+    0.0,
+    0.0,
+    1.0,
+    142.55999755859375
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "05b_forearm_robpart3": [
+   [
+    1.0,
+    0.0,
+    0.0,
+    -0.0059051513671875
+   ],
+   [
+    0.0,
+    0.9998476951563913,
+    -0.01745240643728351,
+    -40.33044661066653
+   ],
+   [
+    0.0,
+    0.01745240643728351,
+    0.9998476951563912,
+    143.62712330355578
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "05c_forearm_robpart4": [
+   [
+    1.0,
+    0.0,
+    0.0,
+    0.112152099609375
+   ],
+   [
+    0.0,
+    1.0,
+    0.0,
+    -41.857017517089844
+   ],
+   [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "05d_forearm_robpart5": [
+   [
+    1.0,
+    0.0,
+    0.0,
+    0.43791770935058594
+   ],
+   [
+    0.0,
+    1.0,
+    0.0,
+    0.41436195373535156
+   ],
+   [
+    0.0,
+    0.0,
+    1.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ]
+ },
+ "sources": {
+  "robpart2V4": "sha256 OK",
+  "robpart3V4": "sha256 OK",
+  "robpart4V4": "sha256 OK",
+  "robpart5V4": "sha256 OK"
+ },
+ "forearm_bbox_mm": [
+  112.1,
+  96.3,
+  251.2
+ ],
+ "forearm_length": 249.8,
+ "wrist": {
+  "type": "fixed (tongue for the hand's M10 wrist pin)",
+  "pin_z": 267.8,
+  "pin_xy": [
+   -7.6,
+   -20.3
+  ],
+  "tongue_width": 40.84,
+  "hand_prong_gap": 41.84,
+  "bore": 10.5
+ },
+ "board": "in the BASE (see report_base)",
+ "wrist_block_cable_slots": 3,
+ "overlaps_mm3": {
+  "board_vs_shells": null,
+  "tray_vs_shells": null,
+  "block_vs_shells": 0.0,
+  "block_vs_tray": null
+ },
+ "inner_ribs_removed_cm3": {
+  "05a_forearm_robpart2": 0.09,
+  "05b_forearm_robpart3": 0.03,
+  "05c_forearm_robpart4": -0.0,
+  "05d_forearm_robpart5": 0.0
+ },
+ "elbow_end_outer_bounds_for_base_socket": [
+  [
+   -41.0,
+   -56.2,
+   45.4,
+   22.7
+  ],
+  [
+   -43.9,
+   -64.5,
+   47.9,
+   24.6
+  ],
+  [
+   -46.7,
+   -64.2,
+   50.5,
+   26.7
+  ]
+ ],
+ "watertight": {
+  "05a_forearm_robpart2": true,
+  "05b_forearm_robpart3": true,
+  "05c_forearm_robpart4": true,
+  "05d_forearm_robpart5": true,
+  "06_wrist_block": true
+ }
+}

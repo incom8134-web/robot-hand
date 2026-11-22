@@ -1,7 +1,7 @@
 # Original InMoov files (unmodified)
 
 Kept exactly as downloaded from inmoov.fr on 2026-11-11 — see `dona_univ_robot_hand_2026-11-13_Sanjev_sha256sums.txt` (run `sha256sum -c dona_univ_robot_hand_2026-11-13_Sanjev_sha256sums.txt` here).
-These are the reference geometry for every build. The current design (2026-11-16) puts **5 x Feetech STS3215 (12 V) in the forearm**, one per finger; the stock forearm bed here is sized for the JX PDI-6225MG / MG996R class and is too small for them, so a new bed is to be designed. For the earlier ES08MA II prototype use `../prototype/`.
+These are the reference geometry for every build. The current design (2026-11-17) uses **5 x Feetech STS3215 split 3 in the upper hand and 2 in the forearm**. The stock forearm bed here is sized for the JX PDI-6225MG / MG996R class and remains reference-only; use the generated replacement in `../current/`. For the earlier ES08MA II prototype use `../prototype/`.
 
 | Folder | Files |
 |---|---|
