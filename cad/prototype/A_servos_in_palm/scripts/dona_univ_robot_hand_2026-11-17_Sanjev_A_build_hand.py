@@ -4,7 +4,7 @@ Built only by MODIFYING the original InMoov i2 files in cad/original/hand_i2 (SH
 
 What the script does
   1. Scale the InMoov palm parts uniformly by SCALE so the 5 stock servo slots (made for JX PDI-6225MG, 39.9 x 21.0 mm)
-     hold an STS3215 (45.4 x 24.8 x 35.3 mm, from the Feetech STEP in cad/original/sts3215) with >= 1.5 mm walls between slots.
+     hold an STS3215 (45.4 x 24.8 x 35.3 mm, from the Feetech STEP in cad/original/reference) with >= 1.5 mm walls between slots.
   2. i2_WristLargeV2  -> palm frame: 5 STS3215 pockets cut in the 5 stock slots (same centres + angles as InMoov).
      Servo stands in the slot, horn on the BACK of the hand (+z); finger servos have the horn at the finger end,
      the thumb servo lies across the wrist end with the horn toward the thumb (as in the user's photo).
@@ -32,7 +32,7 @@ SRC = {   # file -> sha256 (cad/original/dona_univ_robot_hand_2026-11-13_Sanjev_
     "i2_handpdi6225v2": "722f1023509d4871b39de68474c65d65c8a79ee0ba9514f1ddf90945cc4884b2",
     "i2_palmcoverv2": "27f0410fd2f9f00447d169aa8c49ebb7ef1489b345234a4e5d1e09549108d95a",
 }
-SERVO_STEP = os.path.join(ORIG, "sts3215", "dona_univ_robot_hand_2026-11-17_Sanjev_servo_motor_sts3215_v10.step")
+SERVO_STEP = os.path.join(ORIG, "reference", "servo-motor_sts3215-v10.step")   # moved 2026-11-22 (was original/sts3215/...); same SHA-256
 SERVO_SHA = "418869e1533cd6b4dc6e6f234e2fbf9fb7777415cca8e685f226109b7dbde594"
 
 # ---------------------------------------------------------------- PARAMETERS
@@ -67,8 +67,17 @@ LOGO_TEXT, LOGO_TEXT_H, LOGO_TEXT_Y = "JINIE EDUTECH", 7.5, (14.0, 60.0)   # tex
 LOGO_DEPTH = 1.0                              # engraving depth into the dome
 LOGO_GRID = 1.0                               # height-map grid for the groove fill (mm)
 # ring pulley (new part)
-RP_ID, RP_OD, RP_SKIRT, RP_CAP = 20.4, 26.0, 4.5, 1.5    # clamps over the D20 disc horn
-RP_PCD_XY, RP_HOLE = 5.0, 2.2                            # horn holes at (+-5, +-5) from the shaft (STEP), M2 screws
+# REVIEW 2026-11-26 (Grok Bot, box copy): the old pulley (4.5 mm skirt + 1.5 mm cap) hung 4.5 mm below the horn top and
+# overlapped the servo CASE by 63-123 mm3 (the Feetech STEP case top rises to z 16.0-17.0 within r 10.2-13 of the shaft),
+# so it could not seat. New pulley = 4 mm disc ON TOP of the horn + 1.2 mm centring lip over the horn rim; lip bottom
+# z 17.5 stays 0.5 above the highest case point under it (17.0). Cap is now 4.0 mm (was 1.5) with M2 counterbores.
+RP_ID, RP_OD = 20.4, 26.0              # lip fits over the D20 horn disc (STEP); third-party drawings give D19.2 -> screws centre it
+RP_SKIRT = 1.2                         # centring lip below the horn top (name kept: the assembly script places the pulley with it)
+RP_CAP = 4.0                           # disc above the horn top (holds the tendon groove)
+RP_PCD_XY, RP_HOLE = 4.95, 2.2         # horn holes on a 14.0 mm pitch circle (Feetech drawing via Formada3D) -> (+-4.95, +-4.95); M2
+RP_CBORE_D, RP_CBORE_H = 4.2, 1.8      # M2 head counterbores (heads stay below the pulley top). Screw: M2 x 6 (3.4 mm pulley + 2.6 mm in horn)
+RP_GROOVE_R = 1.0                      # tendon groove radius (groove bottom D24 -> lever arm ~12.4 mm with a 0.8 mm line)
+RP_TOP_CLR = 0.6                       # free height above the pulley top inside the covers (was 2.0 for protruding screw heads)
 RP_ENV_D = RP_OD + 2.0
 
 # ---------------------------------------------------------------- helpers
@@ -107,7 +116,7 @@ def envelopes(name, clr):
     """case / horn ring / plug zone envelopes in the palm frame."""
     x0, x1, y0, y1, z0, z1 = CASE
     case = box(x0 - clr, x1 + clr, y0 - clr, y1 + clr, z0 - clr, z1 + clr)
-    ring = cyl(SHAFT_X, 0, HORN_Z[0] - 0.5, HORN_Z[1] + RP_CAP + 2.0, RP_ENV_D)      # ring pulley + screw heads
+    ring = cyl(SHAFT_X, 0, HORN_Z[0] - 0.5, HORN_Z[1] + RP_CAP + RP_TOP_CLR, RP_ENV_D)  # ring pulley (heads counterbored)
     c = CONN
     plug = box(c[0] - 1, c[1] + 1, c[2] - 1, c[3] + 1, c[4] - PLUG_LEN, c[5])
     M = place(name)
@@ -204,15 +213,48 @@ def apply_logo(cover):
     return D(cover, [cutter]), icon, txt
 
 # ---------------------------------------------------------------- parts
+# REVIEW 2026-11-26 (Grok Bot, box copy): scaling x1.28 turned the stock ~2.9-3.0 mm self-tap holes into 3.74-3.83 mm:
+# too big for an M3 thread, too small for an M4 to pass the covers. Fix: M3 heat-set inserts in the frame (hole D4.0 x 6 mm
+# from the face the cover screw comes from); the 3.74 mm cover holes then act as M3 clearance holes.
+FRAME_INSERT_D, FRAME_INSERT_DEPTH = 4.0, 6.0
+FRAME_INSERTS = [((-32.9, 58.0), "top"), ((-32.4, 86.0), "top"), ((5.9, 44.1), "top"),     # back cover (02) screws, measured hole centres
+                 ((-39.0, -6.2), "bottom"), ((19.1, -16.8), "bottom")]                       # palm cover (03) screws
+
+def _insert_cutters(f):
+    from shapely.geometry import Point, Polygon
+    cut = []
+    for (x, y), face in FRAME_INSERTS:
+        # snap to the real hole centre in the scaled frame (section at mid height), then find the face height by ray
+        z_probe = 12.0 if face == "top" else 3.0
+        s = f.section(plane_origin=[0, 0, z_probe], plane_normal=[0, 0, 1]); p2, _ = s.to_planar(to_2D=np.eye(4))
+        c = None
+        for poly in p2.polygons_full:
+            for h in poly.interiors:
+                hp = Polygon(h)
+                if hp.area < 40 and hp.distance(Point(x, y)) < 1.0: c = hp.centroid.coords[0]
+        assert c is not None, f"insert hole near {(x, y)} not found"
+        o = np.array([[c[0], c[1], 200.0 if face == "top" else -200.0]]); d = np.array([[0, 0, -1.0 if face == "top" else 1.0]])
+        # first frame surface hit outside the hole: probe on a ring just outside the insert radius
+        zs = []
+        for a in np.linspace(0, 2 * np.pi, 12, endpoint=False):
+            oo = o + [[np.cos(a) * (FRAME_INSERT_D / 2 + 0.6), np.sin(a) * (FRAME_INSERT_D / 2 + 0.6), 0]]
+            loc, _, _ = f.ray.intersects_location(oo, d, multiple_hits=False)
+            if len(loc): zs.append(loc[0, 2])
+        zf = max(zs) if face == "top" else min(zs)
+        z0, z1 = (zf - FRAME_INSERT_DEPTH, zf + 1.0) if face == "top" else (zf - 1.0, zf + FRAME_INSERT_DEPTH)
+        cut.append(cyl(c[0], c[1], z0, z1, FRAME_INSERT_D))
+    return cut
+
 def frame_part():
     f = load("i2_wristlargev2"); f.apply_scale(SCALE)
+    insert_cuts = _insert_cutters(f)
     cuts = []
     for k in SLOTS:
         case, ring, plug = envelopes(k, CLR)
         tall = case.copy(); tall.apply_translation([0, 0, 0])
         x0, x1, y0, y1, _, _ = CASE
         t = box(x0 - CLR, x1 + CLR, y0 - CLR, y1 + CLR, -60, 60); t.apply_transform(place(k)); cuts += [t, ring]
-    return D(f, cuts)
+    return D(f, cuts + insert_cuts)
 
 # back cover extension (user 2026-11-17: "cover the remaining part of the hand"): the stock i2 cover is widened to the
 # frame outline and gets a lip down to the frame, so the servos / pulleys / frame sides are hidden. Kept OPEN: knuckles
@@ -286,7 +328,51 @@ def hand_cover_part():
     h, _ = cover_extension(h)        # ... then widen the cover over the rest of the hand ...
     frame = load("i2_wristlargev2"); frame.apply_scale(SCALE)
     h = D(h, cuts)                   # ... servo pockets last, so the groove fill can never close a pocket
+    h = D(h, vent_slots())           # REVIEW 2026-11-26: vents over the motor end of the servos (closed palm ran hot)
     return h
+
+# REVIEW 2026-11-26 (Grok Bot): 3 slots through the back cover over the MOTOR end of each servo (servo frame x -20..-8,
+# away from the horn/pulley). Slots that would touch the logo / "JINIE EDUTECH" text area are skipped.
+VENT_W, VENT_L, VENT_PITCH, VENT_X = 2.0, 12.0, 5.0, (-20.0, -8.0)
+def vent_slots():
+    from shapely.geometry import box as sbox, Polygon
+    keep_out = [sbox(*[INMOOV_TEXT_BOX[0] - 3, INMOOV_TEXT_BOX[2] - 3, INMOOV_TEXT_BOX[1] + 3, INMOOV_TEXT_BOX[3] + 3]),
+                sbox(LOGO_ICON_CENTRE[0] - LOGO_ICON_W / 2 - 3, LOGO_ICON_CENTRE[1] - LOGO_ICON_W / 2 - 3,
+                     LOGO_ICON_CENTRE[0] + LOGO_ICON_W / 2 + 3, LOGO_ICON_CENTRE[1] + LOGO_ICON_W / 2 + 3)]
+    out = []
+    for k in SLOTS:
+        for i in (-1, 0, 1):
+            y = i * VENT_PITCH
+            sl = box(VENT_X[0], VENT_X[1], y - VENT_W / 2, y + VENT_W / 2, CASE[5] + 0.5, 80.0); sl.apply_transform(place(k))
+            fp = Polygon(sl.vertices[:, :2]).convex_hull if False else None
+            from shapely.geometry import MultiPoint
+            fp = MultiPoint(sl.vertices[:, :2].tolist()).convex_hull
+            if any(fp.intersects(ko) for ko in keep_out): continue
+            out.append(sl)
+    vent_slots.count = len(out)
+    return out
+
+# REVIEW 2026-11-26 (Grok Bot): with the closed palm cover every 5264 plug pocket was sealed (servo above, cover around),
+# so the servo cables had no way out. Cable channel inside the palm cover, daisy chain index -> middle -> ring -> pinky
+# -> thumb -> wrist, leaving the cover's wrist edge into the palm-side cable slot of the wrist block (hand z -10..-1).
+# Each segment is a flat-bottomed slot; its floor is set so the outer palm skin under it stays >= CH_SKIN.
+CH_W, CH_H, CH_SKIN, CH_ZMIN = 8.0, 5.5, 1.8, -13.0
+CH_ROUTE = [(27.9, 23.5), (0.0, 11.6), (-28.5, 26.7), (-54.8, 47.2), (-30.0, 62.0), (-2.9, 73.1), (-12.0, 95.0), (-17.0, 125.0)]
+
+def cable_channels(p):
+    """slot solids along CH_ROUTE (hand frame); floor follows the outer face of the palm cover p."""
+    from shapely.geometry import LineString
+    out, info = [], []
+    for a, b in zip(CH_ROUTE[:-1], CH_ROUTE[1:]):
+        a, b = np.array(a), np.array(b); u = (b - a) / np.linalg.norm(b - a); n = np.array([-u[1], u[0]])
+        pts = [a + (b - a) * t + n * w for t in np.linspace(0, 1, 150) for w in np.linspace(-CH_W / 2 - 0.5, CH_W / 2 + 0.5, 11)]
+        O = np.c_[np.array(pts), np.full(len(pts), -80.0)]
+        loc, ri, _ = p.ray.intersects_location(O, np.tile([0, 0, 1.0], (len(O), 1)), multiple_hits=False)
+        zbot = max(CH_ZMIN, float(loc[:, 2].max()) + CH_SKIN) if len(loc) else CH_ZMIN
+        poly = LineString([tuple(a), tuple(b)]).buffer(CH_W / 2)
+        pr = trimesh.creation.extrude_polygon(poly, CH_H); pr.apply_translation([0, 0, zbot]); out.append(pr)
+        info.append(dict(seg=[a.round(1).tolist(), b.round(1).tolist()], z=[round(zbot, 2), round(zbot + CH_H, 2)]))
+    return out, info
 
 PALM_SKIN = 1.6        # closed palm: min cover skin under the servo bottoms / plugs (user: no holes in the cover)
 PALM_SMOOTH = 5.0      # smoothing (mm) of the local palm bulges so they look like part of the InMoov cover
@@ -329,18 +415,23 @@ def palm_cover_part():
             pr = trimesh.creation.extrude_polygon(g, 60.0); pr.apply_translation([0, 0, lo[2] - 40.0]); prisms.append(pr)
         pad = I(pad, U(prisms))
         p = U([p, pad])
-    return D(p, cuts)
+    ch, info = cable_channels(p)
+    palm_cover_part.channels = info
+    return D(p, cuts + ch)
 
 def ring_pulley_part():
     import cadquery as cq
-    r = cq.Workplane("XY").circle(RP_OD / 2).extrude(RP_SKIRT + RP_CAP)
-    r = r.cut(cq.Workplane("XY").circle(RP_ID / 2).extrude(RP_SKIRT))                       # sits over the horn disc
-    r = r.cut(cq.Workplane("XY").add(cq.Solid.makeTorus(RP_OD / 2, 1.0, cq.Vector(0, 0, RP_SKIRT / 2), cq.Vector(0, 0, 1))))  # tendon groove
-    r = r.cut(cq.Workplane("XY").circle(3.0).extrude(20).translate((0, 0, -1)))              # horn screw access
+    H = RP_SKIRT + RP_CAP
+    gz = RP_SKIRT + RP_CAP / 2                                                              # groove centre height
+    r = cq.Workplane("XY").circle(RP_OD / 2).extrude(H)
+    r = r.cut(cq.Workplane("XY").circle(RP_ID / 2).extrude(RP_SKIRT))                       # centring lip over the horn rim
+    r = r.cut(cq.Workplane("XY").add(cq.Solid.makeTorus(RP_OD / 2, RP_GROOVE_R, cq.Vector(0, 0, gz), cq.Vector(0, 0, 1))))  # tendon groove
+    r = r.cut(cq.Workplane("XY").circle(3.0).extrude(20).translate((0, 0, -1)))              # horn centre screw access
     for sx in (-1, 1):
         for sy in (-1, 1):
             r = r.cut(cq.Workplane("XY").circle(RP_HOLE / 2).extrude(20).translate((sx * RP_PCD_XY, sy * RP_PCD_XY, -1)))
-    r = r.cut(cq.Workplane("XZ").circle(0.8).extrude(-30, both=True).translate((0, 0, RP_SKIRT / 2)))   # tendon tie hole
+            r = r.cut(cq.Workplane("XY").circle(RP_CBORE_D / 2).extrude(RP_CBORE_H + 1).translate((sx * RP_PCD_XY, sy * RP_PCD_XY, H - RP_CBORE_H)))
+    r = r.cut(cq.Workplane("XZ").circle(0.8).extrude(-30, both=True).translate((0, 0, gz)))   # tendon tie hole
     return r
 
 def servo_ghosts():
@@ -353,7 +444,7 @@ def servo_ghosts():
     out = []
     for k in SLOTS:
         m = s.copy(); m.apply_transform(place(k)); out.append(m)
-        rp = cyl(SHAFT_X, 0, HORN_Z[0] + 0.5, HORN_Z[1] + RP_CAP, RP_OD); rp.apply_transform(place(k)); out.append(rp)
+        rp = cyl(SHAFT_X, 0, HORN_Z[1] - RP_SKIRT, HORN_Z[1] + RP_CAP, RP_OD); rp.apply_transform(place(k)); out.append(rp)
     return trimesh.util.concatenate(out)
 
 # ---------------------------------------------------------------- checks + export
@@ -426,6 +517,8 @@ if __name__ == "__main__":
         palm_cover_under_case=skin(parts["03_palm_cover"], False),
         watertight={n: bool(m.is_watertight) for n, m in parts.items()},
         solids={n: len(m.split()) for n, m in parts.items()},
+        back_cover_vent_slots=getattr(vent_slots, "count", None),
+        palm_cover_cable_channel=dict(width=CH_W, height=CH_H, min_skin=CH_SKIN, segments=getattr(palm_cover_part, "channels", None)),
         volume_cm3={n: round(m.volume / 1000, 1) for n, m in parts.items()},
         servo_positions={k: dict(id_suggestion=SERVO_ID[k], centre_xy=[round(SLOTS[k][0][0] * SCALE, 1), round(SLOTS[k][0][1] * SCALE, 1)],
                                  horn_direction_deg=SLOTS[k][1],

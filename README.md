@@ -3,7 +3,7 @@
 # 🤖 HAEBOT Hand i2 — Version 1
 
 **5-finger, independently actuated, tendon-driven robotic hand**
-*InMoov Hand i2 기반 · EMAX ES08MA II 서보 · Arduino Nano · 가위바위보 시연*
+*InMoov Hand i2 기반 · Feetech STS3215 서보 x5 (손바닥) · ATmega328PB · 가위바위보 시연*
 
 ![Status](https://img.shields.io/badge/status-CAD%20generated%20%E2%80%94%20not%20printed-orange)
 ![Version](https://img.shields.io/badge/version-V1-informational)
@@ -23,11 +23,11 @@
 HAEBOT Hand i2 V1 is a 3D-printed robotic hand derived from the open-source **[InMoov Hand i2](https://inmoov.fr/hand-i2/)** by Gael Langevin.
 Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servos we already own, drives **all five fingers independently** with tendons and return elastics, and targets a repeatable **Rock / Paper / Scissors** demonstration.
 
-> 🔄 **Current design — updated 2026-11-17.** The hand uses **5 x Feetech STS3215 smart servos: 3 in the palm/upper hand and 2 immediately below the wrist**, one per finger, on a half-duplex TTL bus from a custom **ATmega328PB** board. The maximum 100 x 60 mm PCB fits in the generated forearm and the PSU lives in the base. CAD: [`cad/current/`](cad/current/). Electronics: [`electronics/version_2/`](electronics/version_2/). Verify the complete servo suffix before power: both 7.4 V and 12 V products use the STS3215 family name.
+> 🔄 **Current design — Prototype A, updated 2026-11-26.** The hand uses **5 x Feetech STS3215 (ST-3215-C018, 12 V) smart servos, all 5 in the palm** (InMoov i2 palm parts scaled 1.28x), one per finger, on a half-duplex TTL bus from a custom **ATmega328PB** board. The 100 x 60 mm board and the **Mean Well LRS-350-12 PSU live in the base**, fed by a PC-style IEC C14 power cable; the servos share a **chained 12 V supply** (user's circuit). CAD: [`cad/prototype/A_servos_in_palm/`](cad/prototype/A_servos_in_palm/). Electronics: [`electronics/version_2/`](electronics/version_2/).
 
 > ⚠️ **V1 status: PROTOTYPE CAD GENERATED, NOT YET PRINTED.** The ES08MA II servo adapter, pulley, fit-test seat and desk stand exist as STEP + STL and were checked digitally against the official WristLarge (0 mm³ overlap). **No physical fit, torque, current-draw, or endurance results exist yet.**
 
-### 🖨️ Start here → [`cad/current/`](cad/current/) — active arm/base STEP + STL, fit checks, parameters, and assembly guide
+### 🖨️ Start here → [`cad/prototype/A_servos_in_palm/`](cad/prototype/A_servos_in_palm/) — print list, print settings, fasteners, fit checks, electrical notes
 
 ## 🎯 V1 Goals
 
@@ -38,23 +38,25 @@ Version 1 re-engineers the servo mounting for the **EMAX ES08MA II** micro servo
 | 3 | Reproducible, documented engineering repo | Another builder can print, wire, and calibrate from the docs |
 | 4 | Education-ready | Usable in physical-AI / vibe-coding courses |
 
-## 🧩 System Architecture — current (2026-11-16)
+## 🧩 System Architecture — current (Prototype A, 2026-11-26)
 
 ```mermaid
 flowchart LR
     PC["Windows PC<br/>Python · OpenCV · MediaPipe"] -- "USB mini-B" --> CH[CH340C]
     CH -- UART0 --> MCU["ATmega328PB<br/>5 V · 16 MHz"]
     MCU -- UART1 --> BUF["Half-duplex TTL<br/>tri-state buffer"]
-    BUF -- "DATA (one wire)" --> SERVO["5 × STS3215<br/>IDs 1–5 · 3 palm + 2 forearm"]
-    JACK["12 V DC jack"] --> RAIL["Servo rail<br/>direct only for 12 V variant"]
+    BUF -- "DATA (one wire)" --> SERVO["5 × STS3215 12 V<br/>IDs 1–5 · all in the palm"]
+    MAINS["IEC C14 inlet<br/>fuse + switch (PC cable)"] --> PSU["LRS-350-12<br/>in the base"]
+    PSU --> FUSE12["12 V fuse ≈ 7.5 A"]
+    FUSE12 --> RAIL["12 V chained<br/>servo to servo (5264)"]
     RAIL --> SERVO
-    JACK --> REG["12 V → 5 V<br/>regulator"]
+    PSU --> REG["12 V → 5 V<br/>regulator"]
     REG --> MCU
     USB5["USB 5 V"] --> MCU
     MCU -. "common GND" .- SERVO
 ```
 
-Open with the board developer: whether 12 V shares the servo connector or gets its own, and how the two 5 V sources (USB and the regulator) are selected. See [`electronics/version_2/README.md`](electronics/version_2/README.md).
+Power layout is the user's decision (chained 12 V, PSU in the base). Safety notes for it (12 V fuse, firmware torque limits, inlet fuse, protective earth) are in the [Prototype A README](cad/prototype/A_servos_in_palm/README.md#electrical-users-design--electronics-is-owned-by-the-user-notes-only-nothing-redesigned). See also [`electronics/version_2/README.md`](electronics/version_2/README.md).
 
 ## 🧩 System Architecture — V1 (superseded)
 
@@ -97,8 +99,8 @@ robot-hand/
 │   └── 동아대_robot_hand_2026-11-11_산지브_해봇핸드i2_구현프롬프트.md        # Claude implementation brief
 ├── cad/
 │   ├── README.md          # which folder is what
-│   ├── current/           # active 3+2 STS3215 arm/base CAD, checks, and guide
-│   ├── prototype/         # ⭐ ONE flat folder: 01_… 10_ parts (STL + STEP), PRINT_LIST, ASSEMBLY_GUIDE, images, 99_ generator
+│   ├── prototype/A_servos_in_palm/   # ⭐ Prototype A: print/, reference/, reports/, images/, scripts/
+│   ├── prototype/B_servos_in_forearm/ # backup, not started
 │   └── original/          # unmodified InMoov Hand i2 + forearm servo bed files (for the later big-servo build)
 ├── electronics/
 │   ├── version_1/         # archived: Pi 5 stacked controller concept (power budget, BOM, renders, STEP)
@@ -113,7 +115,7 @@ robot-hand/
 | Version | Plan | Where |
 |---|---|---|
 | 1 | Pi 5 stacked controller, PCA9685, 6 x MG996R, TMC2209 (archived) | [`electronics/version_1/`](electronics/version_1/) |
-| 2 | Custom board (CH340C, ATmega328PB, half-duplex TTL servo bus) driving 5 x Feetech STS3215, one per finger, split 3 palm + 2 forearm; USB mini-B carries data; the 12 V input may feed only the confirmed 12 V servo variant | [`electronics/version_2/`](electronics/version_2/) |
+| 2 | Custom board (CH340C, ATmega328PB, half-duplex TTL servo bus) driving 5 x Feetech STS3215, one per finger, all 5 in the palm (Prototype A); PSU + board in the base; USB mini-B carries data; the 12 V input may feed only the confirmed 12 V servo variant | [`electronics/version_2/`](electronics/version_2/) |
 
 Version 2 is pre-schematic. See its README for the open items.
 
@@ -170,7 +172,9 @@ Files are labelled `PLANNED → DESIGNED → GENERATED → PRINTED → ASSEMBLED
 
 ## ⚡ Safety
 
-- **Never power the servos from the Arduino Nano 5 V pin.** Use the separate regulated rail.
+- **Mains in the base (LRS-350-12):** inlet fuse T4A slow-blow, protective earth inlet → PSU FG, terminal cover, PSU switch on 230 V; mains wiring by a qualified person; unplug before opening the base.
+- **12 V servo chain:** fuse ≈ 7.5 A at the PSU output and set torque/current limits in the firmware — the PSU (29 A) can overheat the 5264 connectors.
+- **Never power the servos from the board 5 V.**
 - Always connect **common ground** between the servo supply and the Nano.
 - Keep fingers clear during calibration; servos can pinch.
 

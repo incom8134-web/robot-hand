@@ -55,6 +55,9 @@ TONGUE_BORE = 10.5                 # M10 bolt (hand hole ~10.2-11.5)
 PIN_ABOVE_TOP = 18.0               # wrist pin centre above the forearm top
 PIN_TO_ROOT = HAND_PRONG["pin_y"] - HAND_PRONG["root_y"]   # 10.76
 TONGUE_END_R = PIN_TO_ROOT - 1.0     # rounded tongue end stays 1 mm short of the palm
+# REVIEW 2026-11-26 (Grok Bot): the rounded tongue let the hand rock +-3..5 deg on the M10 (hand CG ~80 mm above the pin).
+TONGUE_FLAT_END = True
+TONGUE_END_GAP = 0.5                 # flat tongue end -> palm root gap (wiggle-room rule: sliding fit 0.4-0.5)
 # board (user: 100 x 60, in the forearm just below the wrist)
 PCB = (60.0, 100.0, 1.6)           # x (across) , z (along the arm), thickness
 PCB_COMP_H, PCB_UNDER = 20.0, 5.0  # component height above the board, standoff height below - ESTIMATE
@@ -165,8 +168,11 @@ def build():
     ty0 = cy + (HAND_PRONG["z0"] - HAND_PRONG["pin_z"]) + TONGUE_CLR
     ty1 = cy + (HAND_PRONG["z1"] - HAND_PRONG["pin_z"]) - TONGUE_CLR
     tongue = box(cx - tw / 2, cx + tw / 2, ty0, ty1, top, pin_z)
-    tongue = U([tongue, I(cyl([cx - tw / 2, cy, pin_z], [cx + tw / 2, cy, pin_z], 2 * TONGUE_END_R),
-                          box(cx - tw, cx + tw, ty0, ty1, pin_z - 1, pin_z + TONGUE_END_R + 1))])
+    if TONGUE_FLAT_END:   # REVIEW 2026-11-26: square end close to the palm root -> the hand cannot rock on the single M10
+        tongue = U([tongue, box(cx - tw / 2, cx + tw / 2, ty0, ty1, pin_z - 1, pin_z + PIN_TO_ROOT - TONGUE_END_GAP)])
+    else:
+        tongue = U([tongue, I(cyl([cx - tw / 2, cy, pin_z], [cx + tw / 2, cy, pin_z], 2 * TONGUE_END_R),
+                              box(cx - tw, cx + tw, ty0, ty1, pin_z - 1, pin_z + TONGUE_END_R + 1))])
     block = U([plug, cap, tongue])
     block = D(block, [cyl([cx - tw, cy, pin_z], [cx + tw, cy, pin_z], TONGUE_BORE)])
     # cable slots through the block, in front of and behind the tongue (servo cables from the palm come down here)

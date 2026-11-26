@@ -1,7 +1,7 @@
 # AGENTS.md — HAEBOT Hand (STS3215): how AI agents and people work together
 
 Read this file first — it is the only hand-over file (the log is in section 9; `docs/agents/` was removed by the user). If this account runs out of credit, the next agent continues from here.
-Last updated: 2026-11-17 17:20 KST (Claude) — wiggle-room rule added (section 6). See section 9.
+Last updated: 2026-11-26 KST (Grok Bot) — Prototype A review fixes. See section 9.
 
 ## 1. Project in one paragraph
 HAEBOT Hand is an **educational 5-finger, tendon-driven robot hand** by Genie EduTech (Busan) for physical-AI / Python classes.
@@ -32,7 +32,7 @@ Any 3D image that is not a CAD export is a conceptual image, not a real model �
 | Read-only | `cad/original/` (InMoov hand i2, `inmoov_forearm/` robpart2-5V4, forearm servo bed, `sts3215/` Feetech STEP; SHA-256 in the sums file / folder READMEs) | scripts must check the hashes |
 
 ## 4. STS3215 (ST-3215-C018) — numbers for CAD
-Source: Feetech STEP `cad/original/sts3215/dona_univ_robot_hand_2026-11-17_Sanjev_servo_motor_sts3215_v10.step` (measured) + box label (A 45.22 / B 24.7 / C 35 mm).
+Source: Feetech STEP `cad/original/reference/servo-motor_sts3215-v10.step` (moved 2026-11-22, same SHA-256) (measured) + box label (A 45.22 / B 24.7 / C 35 mm).
 | Item | Value (STEP frame: x long side, horn end +x, shaft +z, origin = case centre) |
 |---|---|
 | Case | x −22.7…22.7, y −12.4…12.4, z −18.3…17.0 → **45.4 x 24.8 x 35.3 mm** |
@@ -83,6 +83,14 @@ Branch `servo-24x12`. Never commit/push to `main` or rewrite history without the
 (`protoA: ...`, `protoB: ...`). Do not commit slicer output (`*.gcode`, `*.3mf`), caches, `Claude outputs/`, or `cad/_to_delete/`.
 
 ## 9. Log (newest first) — hand-over between agents
+
+### 2026-11-26 KST — Grok Bot (project manager) — P1 review fixes (user approved commit + merge)
+- **User decisions:** go with Prototype A; office printers Bambu Lab P1S + Two Trees Sapphire Plus (Kossel = home only) → **no part splitting**; keep the **chained 12 V servo power** and the **LRS-350-12 inside the base** with a PC-style IEC cable (do not change the circuit).
+- **Hand script:** servo STEP path → `cad/original/reference/`; ring pulley 04 redesigned (was colliding with the servo case 63–123 mm³): cap on the horn + 1.2 mm skirt, M2 counterbores, tie hole; 5 x M3 heat-set pockets Ø4.0 x 6 in the frame; palm cover 8 x 5.5 mm cable channel from all plug pockets to the wrist; back cover 8 vent slots over the motor ends.
+- **Forearm script:** wrist tongue end square, `TONGUE_END_GAP` 0.5 mm to the palm root (`TONGUE_FLAT_END`); shells 05a–d byte-identical.
+- **Verified (box):** all print STLs watertight; servo vs parts 0.0 mm³; pulley vs case/horn/screw 0.0; back-cover skin ≥ 2.4; palm skin ≥ 1.94, under channel ≥ 1.92; voxel test: every plug pocket reaches the wrist exit (≥ 3 mm passage); hand vs block / forearm / lid 0.0 at 0°; wrist free rotation ≈ −3…+2.5° (was ±3–5°).
+- **Docs:** README banner/architecture → Prototype A + user's power; Prototype A README: print settings, fasteners, electrical safety notes (12 V fuse ≈ 7.5 A, firmware torque limits, inlet T4A, earth to PSU FG, terminal cover).
+- **Not done / open:** tendon path pulleys → fingers (needs real finger holes / PTFE guides at assembly); `assembly/asm_P1_full_arm.step` not regenerated (old pulley; > 100 MB); tipping only documented (feet / clamp / ballast); nothing printed or tested.
 
 ### 2026-11-17 18:00 KST — Claude — P1: render + STEP colours, USB close-up
 - Renders: brighter shading + light grey background so white parts read; hand renders (img_01-04) now white frame/back cover + black palm cover. STEP colours: white hand, black palm cover, silver (0.56) arm + wrist block + base pan, white lid.
@@ -153,7 +161,7 @@ Branch `servo-24x12`. Never commit/push to `main` or rewrite history without the
 - Two prototypes from the InMoov originals only. A (5 servos in the palm) V1: InMoov `i2_WristLargeV2`, `i2_HandPDI6225V2`, `i2_PalmCoverV2` scaled 1.28x with 5 STS3215 pockets in the stock slots, covers carved to sandwich the servos, ring pulley for the Feetech disc horn. Servo vs parts overlap 0.0 mm³, min wall 1.76 mm. Feetech STEP stored in `cad/original/sts3215/`. B (servos in the forearm) not started (same forearm files needed).
 - Open in A: tendon path pulley → fingers not modelled; pinky back-cover skin 0.7 mm; servo bottoms show through the palm cover; horn hole pattern to confirm on a real horn.
 
-## Palm (owner: Grok Bot) - updated 2026-11-22 KST
+## Palm (owner: Grok Bot) - updated 2026-11-22 KST — SUPERSEDED 2026-11-26: the user chose Prototype A (all 5 servos in the palm); this 3+2 plan is history only
 - Palm V0 (from-scratch palm) is DROPPED. Do not use it.
 - Current palm = original InMoov i2 parts, minimally modified for 3x STS3215 (THUMB, MIDDLE, RING):
   `cad/current_palm/i2_wristlargev2_STS3215.stl`, `i2_handpdi6225v2_STS3215.stl`, `i2_palmpdi6225v3_STS3215.stl` + README.md + previews.

@@ -67,7 +67,7 @@
  },
  "back_cover_over_horn": {
   "thumb": {
-   "min_skin_mm": 2.58,
+   "min_skin_mm": 2.4,
    "opening_fraction": 0.0
   },
   "index": {
@@ -75,11 +75,11 @@
    "opening_fraction": 0.0
   },
   "middle": {
-   "min_skin_mm": 4.18,
+   "min_skin_mm": 3.08,
    "opening_fraction": 0.0
   },
   "ring": {
-   "min_skin_mm": 3.78,
+   "min_skin_mm": 2.68,
    "opening_fraction": 0.0
   },
   "pinky": {
@@ -116,13 +116,133 @@
  },
  "solids": {
   "01_palm_frame": 1,
-  "02_back_cover": 4,
+  "02_back_cover": 3,
   "03_palm_cover": 1
+ },
+ "back_cover_vent_slots": 8,
+ "palm_cover_cable_channel": {
+  "width": 8.0,
+  "height": 5.5,
+  "min_skin": 1.8,
+  "segments": [
+   {
+    "seg": [
+     [
+      27.9,
+      23.5
+     ],
+     [
+      0.0,
+      11.6
+     ]
+    ],
+    "z": [
+     -13.0,
+     -7.5
+    ]
+   },
+   {
+    "seg": [
+     [
+      0.0,
+      11.6
+     ],
+     [
+      -28.5,
+      26.7
+     ]
+    ],
+    "z": [
+     -13.0,
+     -7.5
+    ]
+   },
+   {
+    "seg": [
+     [
+      -28.5,
+      26.7
+     ],
+     [
+      -54.8,
+      47.2
+     ]
+    ],
+    "z": [
+     -13.0,
+     -7.5
+    ]
+   },
+   {
+    "seg": [
+     [
+      -54.8,
+      47.2
+     ],
+     [
+      -30.0,
+      62.0
+     ]
+    ],
+    "z": [
+     -12.82,
+     -7.32
+    ]
+   },
+   {
+    "seg": [
+     [
+      -30.0,
+      62.0
+     ],
+     [
+      -2.9,
+      73.1
+     ]
+    ],
+    "z": [
+     -12.8,
+     -7.3
+    ]
+   },
+   {
+    "seg": [
+     [
+      -2.9,
+      73.1
+     ],
+     [
+      -12.0,
+      95.0
+     ]
+    ],
+    "z": [
+     -10.81,
+     -5.31
+    ]
+   },
+   {
+    "seg": [
+     [
+      -12.0,
+      95.0
+     ],
+     [
+      -17.0,
+      125.0
+     ]
+    ],
+    "z": [
+     -6.47,
+     -0.97
+    ]
+   }
+  ]
  },
  "volume_cm3": {
   "01_palm_frame": 176.6,
-  "02_back_cover": 128.9,
-  "03_palm_cover": 113.1
+  "02_back_cover": 124.7,
+  "03_palm_cover": 109.0
  },
  "servo_positions": {
   "thumb": {
